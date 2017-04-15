@@ -1,0 +1,32 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+platform :ios, '8.0'
+
+source 'https://github.com/CocoaPods/Specs.git'
+
+target 'example' do
+  react_native_path = "../node_modules/react-native"
+  pod "Yoga", :path => "#{react_native_path}/ReactCommon/yoga"
+  pod 'React', :path => react_native_path, :subspecs => [
+    'Core',
+    'RCTActionSheet',
+    'RCTAnimation',
+    'RCTGeolocation',
+    'RCTImage',
+    'RCTLinkingIOS',
+    'RCTNetwork',
+    'RCTSettings',
+    'RCTText',
+    'RCTVibration',
+    'RCTWebSocket',
+  ]
+  pod "RNGLModelView", :path => "../../ios"
+
+#  use_frameworks!
+#  [
+#    'GoogleMaps'
+#  ].each do |lib|
+#    pod lib
+#  end
+end

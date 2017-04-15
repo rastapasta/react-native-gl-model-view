@@ -1,0 +1,6 @@
+node_modules/
+.expo/
+npm-debug.*
+.DS_Store
+Pods/
+Podfile.lock

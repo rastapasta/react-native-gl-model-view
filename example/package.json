@@ -1,0 +1,22 @@
+{
+  "name": "example",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "jest-expo": "^0.3.0",
+    "react-test-renderer": "~15.4.1"
+  },
+  "scripts": {
+    "start": "react-native start",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "test": "node node_modules/jest/bin/jest.js --watch"
+  },
+  "jest": {
+    "preset": "jest-expo"
+  },
+  "dependencies": {
+    "react": "~15.4.0",
+    "react-native": "0.42.3"
+  }
+}
