@@ -6,9 +6,8 @@ Pod::Spec.new do |s|
   s.description  = <<-DESC
                   react-native-gl-model-view
                    DESC
-  s.homepage     = ""
+  s.homepage     = "https://github.com/rastaoasta/react-native-gl-model-view"
   s.license      = "MIT"
-  s.license      = { :type => "MIT", :file => "FILE_LICENSE" }
   s.author       = { "author" => "Michael Straßburger <codepoet@cpan.org>" }
   s.platform     = :ios, "7.0"
   s.source       = { :git => "https://github.com/rastaoasta/react-native-gl-model-view.git", :tag => "master" }
