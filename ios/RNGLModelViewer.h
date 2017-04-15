@@ -1,13 +1,13 @@
 //
-//  react-native-gl-model-viewer
-//  https://github.com/rastapasta/react-native-gl-model-viewer
+//  react-native-gl-model-view
+//  https://github.com/rastapasta/react-native-gl-model-view
 //
-//  RNGLModelViewer.m
+//  RNGLModelView.m
 //
 
-#import "RNGLModelViewer.h"
+#import "RNGLModelView.h"
 
-@implementation RNGLModelViewer
+@implementation RNGLModelView
 
 - (void)didMoveToWindow
 {

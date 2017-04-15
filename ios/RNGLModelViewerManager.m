@@ -1,8 +1,8 @@
 //
-//  react-native-gl-model-viewer
-//  https://github.com/rastapasta/react-native-gl-model-viewer
+//  react-native-gl-model-view
+//  https://github.com/rastapasta/react-native-gl-model-view
 //
-//  RNGLModelViewerManager.m
+//  RNGLModelViewManager.m
 //
 
 #if __has_include("RCTBridge.h")
@@ -11,19 +11,19 @@
 #import <React/RCTBridge.h>
 #endif
 
-#import "RNGLModelViewerManager.h"
+#import "RNGLModelViewManager.h"
 
-@implementation RNGLModelViewerManager
+@implementation RNGLModelViewManager
 {
-  RNGLModelViewer *glModelViewer;
+  RNGLModelView *glModelView;
 }
 
 RCT_EXPORT_MODULE()
 
 - (UIView *)view
 {
-  glModelViewer = [[RNGLModelViewer alloc] init];
-  return glModelViewer;
+  glModelView = [[RNGLModelView alloc] init];
+  return glModelView;
 }
 
 RCT_EXPORT_VIEW_PROPERTY(rotateX, CGFloat);
@@ -41,19 +41,19 @@ RCT_EXPORT_VIEW_PROPERTY(translateY, CGFloat);
 RCT_EXPORT_VIEW_PROPERTY(translateZ, CGFloat);
 
 // Loads a model - Wavefront (OBJ) or WWDC2010 model format
-RCT_CUSTOM_VIEW_PROPERTY(model, NSString, RNGLModelViewer)
+RCT_CUSTOM_VIEW_PROPERTY(model, NSString, RNGLModelView)
 {
   view.model = [GLModel modelWithContentsOfFile:[RCTConvert NSString:json]];
 }
 
 // Loads a texture - PVR + all formats supported by UIImage
-RCT_CUSTOM_VIEW_PROPERTY(texture, NSString, RNGLModelViewer)
+RCT_CUSTOM_VIEW_PROPERTY(texture, NSString, RNGLModelView)
 {
   view.texture = [GLImage imageNamed:[RCTConvert NSString:json]];
 }
 
 // Starts or stops the animation loop to automatically re-render each 1/60 second
-RCT_CUSTOM_VIEW_PROPERTY(animate, BOOL, RNGLModelViewer)
+RCT_CUSTOM_VIEW_PROPERTY(animate, BOOL, RNGLModelView)
 {
   view.animated = [RCTConvert BOOL:json];
   if (view.animated) {
@@ -66,7 +66,7 @@ RCT_CUSTOM_VIEW_PROPERTY(animate, BOOL, RNGLModelViewer)
 // Applys the current props and rerenders the scene
 RCT_EXPORT_METHOD(render)
 {
-  [glModelViewer display];
+  [glModelView display];
 }
 
 @end

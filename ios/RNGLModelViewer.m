@@ -1,13 +1,13 @@
 //
-//  react-native-gl-model-viewer
-//  https://github.com/rastapasta/react-native-gl-model-viewer
+//  react-native-gl-model-view
+//  https://github.com/rastapasta/react-native-gl-model-view
 //
-//  RNGLModelViewer.h
+//  RNGLModelView.h
 //
 
 #import <GLView/GLModelView.h>
 
-@interface RNGLModelViewer : GLModelView
+@interface RNGLModelView : GLModelView
 
 @property (nonatomic, assign) BOOL animated;
 

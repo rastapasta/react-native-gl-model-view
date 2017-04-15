@@ -1,6 +1,6 @@
 
 import { NativeModules } from 'react-native';
 
-const { RNGLModelViewer } = NativeModules;
+const { RNGLModelView } = NativeModules;
 
-export default RNGLModelViewer;
+export default RNGLModelView;

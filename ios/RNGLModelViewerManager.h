@@ -1,8 +1,8 @@
 //
-//  react-native-gl-model-viewer
-//  https://github.com/rastapasta/react-native-gl-model-viewer
+//  react-native-gl-model-View
+//  https://github.com/rastapasta/react-native-gl-model-view
 //
-//  RNGLModelViewerManager.h
+//  RNGLModelViewManager.h
 //
 
 #if __has_include("RCTViewManager.h")
@@ -11,8 +11,8 @@
 #import <React/RCTViewManager.h>
 #endif
 
-#import "RNGLModelViewer.h"
+#import "RNGLModelView.h"
 
-@interface RNGLModelViewerManager : RCTViewManager
+@interface RNGLModelViewManager : RCTViewManager
 
 @end

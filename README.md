@@ -1,13 +1,13 @@
 
-# react-native-gl-model-viewer
+# react-native-gl-model-view
 
 ## Getting started
 
-`$ npm install react-native-gl-model-viewer --save`
+`$ npm install react-native-gl-model-view --save`
 
 ### Mostly automatic installation
 
-`$ react-native link react-native-gl-model-viewer`
+`$ react-native link react-native-gl-model-view`
 
 ### Manual installation
 
@@ -15,14 +15,14 @@
 #### iOS
 
 1. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
-2. Go to `node_modules` ➜ `react-native-gl-model-viewer` and add `RNGLModelViewer.xcodeproj`
-3. In XCode, in the project navigator, select your project. Add `libRNGLModelViewer.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
+2. Go to `node_modules` ➜ `react-native-gl-model-view` and add `RNGLModelView.xcodeproj`
+3. In XCode, in the project navigator, select your project. Add `libRNGLModelView.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
 
 ## Usage
 ```javascript
-import RNGLModelViewer from 'react-native-gl-model-viewer';
+import RNGLModelView from 'react-native-gl-model-view';
 
 // TODO: What to do with the module?
-RNGLModelViewer;
+RNGLModelView;
 ```
   
