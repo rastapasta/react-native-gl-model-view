@@ -1,0 +1,27 @@
+
+{
+  "name": "react-native-gl-model-viewer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rastapasta/react-native-gl-model-viewer.git"
+  },
+  "keywords": [
+    "react-native",
+    "native",
+    "bridge",
+    "opengl",
+    "model",
+    "viewer"
+  ],
+  "author": "Michael Straßburger <codepoet@cpan.org>",
+  "license": "MIT",
+  "peerDependencies": {
+    "react-native": "^0.41.2"
+  }
+}
