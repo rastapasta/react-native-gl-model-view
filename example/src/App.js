@@ -11,6 +11,7 @@ import {
 
 import GestureControl from './GestureControl';
 import Slew from './Slew';
+import Animations from './Animations';
 
 export default class example extends Component {
   state = {
@@ -49,7 +50,7 @@ export default class example extends Component {
     }
 
     examples = [
-      {component: Text, info: 'Utilizing the Animation Framework'},
+      {component: Animations, info: 'Utilizing the Animation Framework'},
       {component: GestureControl, info: 'Rotation via Gesture Responder'},
       {component: Slew, info: 'Looped left/right slew'},
     ];

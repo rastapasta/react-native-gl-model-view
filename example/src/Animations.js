@@ -8,17 +8,13 @@ import {
 import ModelView from 'react-native-gl-model-view';
 const AnimatedModelView = Animated.createAnimatedComponent(ModelView);
 
-export default class GestureControl extends Component {
+export default class Animations extends Component {
   constructor() {
     super();
     this.state = {
-      animate: false,
-
-      rotateX: new Animated.Value(270),
+      rotateX: new Animated.Value(0),
       rotateZ: new Animated.Value(0),
-
-      fromXY: undefined,
-      valueXY: undefined
+      translateZ: new Animated.Value(-20),
     };
     Object.keys(this.state).forEach(key =>
       this.state[key] instanceof Animated.Value &&
@@ -26,30 +22,29 @@ export default class GestureControl extends Component {
     );
   }
 
-  onMoveEnd = (e) => {
-    this.setState({fromXY: undefined, animate: false});
-  }
-
-  onMove = (e) => {
-    let { locationX, locationY } = e.nativeEvent,
-      { rotateX, rotateZ, fromXY, valueXY } = this.state;
-    if (!this.state.fromXY) {
-      this.setState({
-        animate: true,
-        fromXY: [locationX, locationY],
-        valueXY: [
-          rotateZ.__getValue(),
-          rotateX.__getValue()
-        ]
-      });
-    } else {
-      rotateZ.setValue(valueXY[0]+(locationX-fromXY[0])/2);
-      rotateX.setValue(valueXY[1]+(locationY-fromXY[1])/2);
-    }
+  componentDidMount() {
+    Animated.parallel([
+      Animated.timing(
+        this.state.translateZ, {
+          toValue: -3,
+          useNativeDriver: true,
+          duration: 4000,
+          easing: Easing.elastic(1)
+        }
+      ),
+      Animated.timing(
+        this.state.rotateX, {
+          toValue: 270,
+          useNativeDriver: true,
+          duration: 5000,
+          easing: Easing.elastic(5)
+        }
+      )
+    ]).start();
   }
 
   render() {
-    let { animate, rotateZ, rotateX } = this.state;
+    let { animate, rotateZ, rotateX, translateZ } = this.state;
 
     return (
       <AnimatedModelView
@@ -60,10 +55,10 @@ export default class GestureControl extends Component {
         onResponderRelease={this.onMoveEnd}
         onResponderMove={this.onMove}
 
-        animate={animate}
+        animate={true}
 
         scale={0.01}
-        translateZ={-2}
+        translateZ={translateZ}
 
         rotateX={Animated.multiply(rotateX, Math.PI/180)}
         rotateZ={Animated.multiply(rotateZ, Math.PI/180)}
