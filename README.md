@@ -1,11 +1,11 @@
 # react-native-gl-model-view
 
 A `<GLModelView>` component for [react-native](github.com/facebook/react-native/), allowing you to
-display and animate any Wavefront .OBJ 3D object by supplying a native bridge to [GLView](https://github.com/nicklockwood/GLView).
+display and animate any Wavefront .OBJ 3D object. Realized with a native bridge to [GLView](https://github.com/nicklockwood/GLView).
 
 Main features:
 
-* Display, rotate, scale and translate any 3D object!
+* Display, rotate, scale and translate any textured 3D object!
 * Animate with blasting fast 60FPS by using the [Animated API](https://facebook.github.io/react-native/docs/animations.html#using-the-native-driver) native driver
 * Load any Wavefront .OBJ or GLEssentials model
 * Use all texture image formats supported by [UIImage](https://developer.apple.com/library/content/documentation/2DDrawing/Conceptual/DrawingPrintingiOS/LoadingImages/LoadingImages.html#//apple_ref/doc/uid/TP40010156-CH17-SW8)
@@ -33,6 +33,7 @@ Afterwards add following lines to your Podfile:
 pod 'React', :path => '../node_modules/react-native'
 pod 'RNGLModelView', :path => '../node_modules/react-native-gl-model-view'
 ```
+
 ## Usage
 
 ```javascript
@@ -50,12 +51,13 @@ import ModelView from 'react-native-gl-model-view';
 
 Check out the [example project](https://github.com/rastapasta/react-native-gl-model-view/tree/master/example)!
 
-To build it on your phone, switch into the `example` folder and set it up as following:
+To build it, switch into the `example` folder and set it up as following:
 
 ```sh
 $ npm install
+$ cd ios
 $ pod install
-$ npm start
+$ cd ..
 $ react-native run-ios
 ```
 
@@ -65,7 +67,7 @@ $ react-native run-ios
 | :------------ |:---------------:| :---------------:| :-----|
 | model | *required* | `string` | Filename of the model, must be included via Xcode |
 | texture | undefined | `string` | Filename of the texture, must be included via Xcode |
-| animate | false | `bool` | Set to `true` re-renders the model with 60FPS |
+| animate | false | `bool` | Set to `true` re-renders the model each 1/60s |
 | scale | 1 | `number` | Scale all axis of the mode by given factor (overwrites scale*)|
 | scaleX | 1 | `number` | Scale X axis by given factor |
 | scaleY | 1 | `number` | Scale Y axis by given factor |
