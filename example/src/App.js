@@ -23,12 +23,13 @@ export default class example extends Component {
   }
 
   render() {
+    let top = left = bottom = right = 20;
     return (
       <View style={styles.container}>
 
         <View style={styles.header}>
           {this.state.example &&
-            <TouchableOpacity onPress={() => this.select()}>
+            <TouchableOpacity onPress={() => this.select()} hitSlop={{top, left, bottom, right}}>
               <Text style={styles.backButton}>&lt;</Text>
             </TouchableOpacity>
           }
@@ -50,9 +51,9 @@ export default class example extends Component {
     }
 
     examples = [
-      {component: Animations, info: 'Utilizing the Animation Framework'},
+      {component: Animations, info: 'Control via Animated API'},
       {component: GestureControl, info: 'Rotation via Gesture Responder'},
-      {component: Slew, info: 'Looped left/right slew'},
+      {component: Slew, info: 'Show as many as you want'},
     ];
 
     return (
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
   backButton: {
     color: 'white',
     fontSize: 18,
-    width: 10
+    width: 30
   },
   headerTitle: {
     color: 'white',
