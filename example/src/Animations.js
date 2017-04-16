@@ -32,7 +32,7 @@ export default class Animations extends Component {
 
   zoom = (action) => {
     let {zoom, translateZ} = this.state;
-    
+
     zoom += action;
     this.setState({zoom});
 
@@ -45,7 +45,7 @@ export default class Animations extends Component {
 
   goCrazy = () => {
     let {rotateZ, rotateX, translateZ} = this.state;
-  
+
     const crazy = (value, toValue) =>
       Animated.timing(value, {
         toValue, useNativeDriver: true, duration: Math.random()*10000, easing: Easing.elastic(4)
@@ -60,7 +60,7 @@ export default class Animations extends Component {
 
   turnAround = () => {
     let {turns, rotateZ} = this.state;
-    
+
     turns++;
     this.setState({turns});
 
@@ -123,7 +123,7 @@ export default class Animations extends Component {
           rotateX={rotateX}
           rotateZ={rotateZ}
 
-          style={styles.container}        
+          style={styles.container}
         />
         <Animated.View style={[styles.buttons, {transform:[{translateY: uiPosition}]}]}>
           {this.renderButton('zoom in', this.zoom.bind(this, 0.8))}

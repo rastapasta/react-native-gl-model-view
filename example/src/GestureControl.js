@@ -67,7 +67,7 @@ export default class GestureControl extends Component {
         rotateX={rotateX}
         rotateZ={rotateZ}
 
-        style={styles.container}        
+        style={styles.container}
       />
     );
   }

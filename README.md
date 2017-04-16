@@ -1,28 +1,78 @@
-
 # react-native-gl-model-view
+
+A `<GLModelView>` component for [react-native](github.com/facebook/react-native/), allowing you to
+display and animate any Wavefront .OBJ 3D object by supplying a native bridge to [GLView](https://github.com/nicklockwood/GLView).
+
+Main features:
+
+* Display, rotate, scale and translate any 3D object!
+* Animate with blasting fast 60FPS by using the [Animated API](https://facebook.github.io/react-native/docs/animations.html#using-the-native-driver) native driver
+* Load any Wavefront .OBJ or GLEssentials model
+* Use all texture image formats supported by [UIImage](https://developer.apple.com/library/content/documentation/2DDrawing/Conceptual/DrawingPrintingiOS/LoadingImages/LoadingImages.html#//apple_ref/doc/uid/TP40010156-CH17-SW8)
+
+## Requirements
+
+* iOS - feel free to PR an Android port ;)
+* Cocoapods - to install the [GLView](https://github.com/nicklockwood/GLView) dependency.
 
 ## Getting started
 
-`$ npm install react-native-gl-model-view --save`
+You can install and try linking the project automatically:
 
-### Mostly automatic installation
+`$ react-native add react-native-gl-model-view`
 
-`$ react-native link react-native-gl-model-view`
+or do it manually as described below:
 
 ### Manual installation
 
+`$ npm install --save react-native-gl-model-view`
 
-#### iOS
+Afterwards add following lines to your Podfile:
 
-1. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
-2. Go to `node_modules` ➜ `react-native-gl-model-view` and add `RNGLModelView.xcodeproj`
-3. In XCode, in the project navigator, select your project. Add `libRNGLModelView.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
-
-## Usage
-```javascript
-import RNGLModelView from 'react-native-gl-model-view';
-
-// TODO: What to do with the module?
-RNGLModelView;
+```sh
+pod 'React', :path => '../node_modules/react-native'
+pod 'RNGLModelView', :path => '../node_modules/react-native-gl-model-view'
 ```
-  
+## Usage
+
+```javascript
+import ModelView from 'react-native-gl-model-view';
+
+<ModelView
+    model="demon.model"
+    texture="demon.png"
+    scale={0.01}
+    translateZ={-2}
+    rotateZ={270}
+    style={{flex: 1}}
+/>
+```
+
+Check out the [example project](https://github.com/rastapasta/react-native-gl-model-view/tree/master/example)!
+
+To build it on your phone, switch into the `example` folder and set it up as following:
+
+```sh
+$ npm install
+$ pod install
+$ npm start
+$ react-native run-ios
+```
+
+### Properties
+
+| Prop  | Default  | Type | Description |
+| :------------ |:---------------:| :---------------:| :-----|
+| model | *required* | `string` | Filename of the model, must be included via Xcode |
+| texture | undefined | `string` | Filename of the texture, must be included via Xcode |
+| animate | false | `bool` | Set to `true` re-renders the model with 60FPS |
+| scale | 1 | `number` | Scale all axis of the mode by given factor (overwrites scale*)|
+| scaleX | 1 | `number` | Scale X axis by given factor |
+| scaleY | 1 | `number` | Scale Y axis by given factor |
+| scaleZ | 1 | `number` | Scale Z axis by given factor |
+| rotateX | 0 | `number` | rotate around X axis by given degree |
+| rotateY | 0 | `number` | rotate around Y axis by given degree |
+| rotateZ | 0 | `number` | rotate around Z axis by given degree |
+| translateX | 0 | `number` | translates X position by given factor |
+| translateY | 0 | `number` | translates Y position by given factor |
+| translateZ | 0 | `number` | translates Z position by given factor |
