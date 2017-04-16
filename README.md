@@ -4,7 +4,7 @@
 ![dependencies](https://david-dm.org/rastapasta/react-native-gl-model-view.svg)
 ![license](https://img.shields.io/github/license/rastapasta/react-native-gl-model-view.svg)
 
-A `<GLModelView>` component for [react-native](github.com/facebook/react-native/), allowing you to
+A `<GLModelView>` component for [react-native](https://github.com/facebook/react-native), allowing you to
 display and animate any Wavefront .OBJ 3D object. Realized with a native bridge to [GLView](https://github.com/nicklockwood/GLView).
 
 <img src="docs/AnimatedAPI.gif" width="32%"/> <img src="docs/GestureResponder.gif" width="32%"/> <img src="docs/Multiple.gif" width="32%" />
