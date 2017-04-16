@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 
 import GestureControl from './GestureControl';
-import Slew from './Slew';
 import Animations from './Animations';
 
 export default class example extends Component {
@@ -52,7 +51,6 @@ export default class example extends Component {
     const examples = [
       {component: Animations, info: 'Control via Animated API'},
       {component: GestureControl, info: 'Rotation via Gesture Responder'},
-      {component: Slew, info: 'Show as many as you want'},
     ];
 
     return (
