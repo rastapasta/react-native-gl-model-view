@@ -3,9 +3,7 @@
 A `<GLModelView>` component for [react-native](github.com/facebook/react-native/), allowing you to
 display and animate any Wavefront .OBJ 3D object. Realized with a native bridge to [GLView](https://github.com/nicklockwood/GLView).
 
-<img src="docs/AnimatedAPI.gif" width="30%"/>
-<img src="docs/GestureResponder.gif" width="30%"/>
-<img src="docs/Multiple.gif" width="30%" />
+<img src="docs/AnimatedAPI.gif" width="31%"/> <img src="docs/GestureResponder.gif" width="31%"/> <img src="docs/Multiple.gif" width="31%" />
 
 Main features:
 
