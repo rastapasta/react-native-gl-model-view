@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   View,
-  Image,
   ScrollView,
   TouchableOpacity,
   Text
@@ -23,13 +21,15 @@ export default class example extends Component {
   }
 
   render() {
-    let top = left = bottom = right = 20;
     return (
       <View style={styles.container}>
 
         <View style={styles.header}>
           {this.state.example &&
-            <TouchableOpacity onPress={() => this.select()} hitSlop={{top, left, bottom, right}}>
+            <TouchableOpacity
+              onPress={this.select.bind(this)}
+              hitSlop={{top: 9, left: 9, bottom: 9, right: 9}}
+            >
               <Text style={styles.backButton}>&lt;</Text>
             </TouchableOpacity>
           }
@@ -39,7 +39,6 @@ export default class example extends Component {
         <View style={styles.body}>
           {this.renderContent()}
         </View>
-
       </View>
     );
   }
@@ -50,17 +49,17 @@ export default class example extends Component {
       return <Example />;
     }
 
-    examples = [
+    const examples = [
       {component: Animations, info: 'Control via Animated API'},
       {component: GestureControl, info: 'Rotation via Gesture Responder'},
       {component: Slew, info: 'Show as many as you want'},
     ];
 
     return (
-      <ScrollView style={styles.menuContainer}>
+      <ScrollView style={styles.menu}>
         {examples.map(example =>
           <TouchableOpacity
-            onPress={() => this.select(example.component)}
+            onPress={this.select.bind(this, example.component)}
             key={example.info}
           >
             <Text style={styles.button}>{example.info}</Text>
@@ -90,7 +89,7 @@ const styles = StyleSheet.create({
     flex: 1,
     zIndex: 1
   },
-  menuContainer: {
+  menu: {
     flex: 1,
     paddingTop: 15,
     paddingLeft: 40,

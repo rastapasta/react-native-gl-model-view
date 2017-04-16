@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   Animated,
-  Easing
 } from 'react-native';
 
 import ModelView from 'react-native-gl-model-view';
@@ -26,7 +25,7 @@ export default class GestureControl extends Component {
     );
   }
 
-  onMoveEnd = (e) => {
+  onMoveEnd = () => {
     this.setState({fromXY: undefined, animate: false});
   }
 

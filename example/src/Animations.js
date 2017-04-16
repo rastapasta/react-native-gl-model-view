@@ -44,17 +44,17 @@ export default class Animations extends Component {
   }
 
   goCrazy = () => {
-    let {turns, rotateZ, rotateX, translateZ} = this.state;
+    let {rotateZ, rotateX, translateZ} = this.state;
+  
+    const crazy = (value, toValue) =>
+      Animated.timing(value, {
+        toValue, useNativeDriver: true, duration: Math.random()*10000, easing: Easing.elastic(4)
+      });
+
     Animated.parallel([
-      Animated.timing(rotateX, {
-        toValue: Math.random()*1000, useNativeDriver: true, duration: Math.random()*10000, easing: Easing.elastic(4)
-      }),
-      Animated.timing(translateZ, {
-        toValue: -2-Math.random()*3, useNativeDriver: true, duration: Math.random()*10000, easing: Easing.elastic(4)
-      }),
-      Animated.timing(rotateZ, {
-        toValue: Math.random()*1000, useNativeDriver: true, duration: Math.random()*10000, easing: Easing.elastic(4)
-      }),
+      crazy(rotateX, Math.random()*1000),
+      crazy(translateZ, -2*Math.random()*3),
+      crazy(rotateZ, Math.random()*1000),
     ]).start();
   }
 
@@ -107,7 +107,7 @@ export default class Animations extends Component {
   }
 
   render() {
-    let { animate, rotateZ, rotateX, translateZ, uiPosition } = this.state;
+    let { rotateZ, rotateX, translateZ, uiPosition } = this.state;
 
     return (
       <View style={styles.container}>
