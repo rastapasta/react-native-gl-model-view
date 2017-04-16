@@ -27,7 +27,7 @@ export default class example extends Component {
         <View style={styles.header}>
           {this.state.example &&
             <TouchableOpacity
-              onPress={this.select.bind(this)}
+              onPress={() => this.select()}
               hitSlop={{top: 9, left: 9, bottom: 9, right: 9}}
             >
               <Text style={styles.backButton}>&lt;</Text>
