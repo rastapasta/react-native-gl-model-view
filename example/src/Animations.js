@@ -53,7 +53,7 @@ export default class Animations extends Component {
 
     Animated.parallel([
       crazy(rotateX, Math.random()*1000),
-      crazy(translateZ, -2*Math.random()*3),
+      crazy(translateZ, -2-Math.random()*3),
       crazy(rotateZ, Math.random()*1000),
     ]).start();
   }

@@ -9,6 +9,7 @@ import {
 
 import GestureControl from './GestureControl';
 import Animations from './Animations';
+import Multiple from './Multiple';
 
 export default class example extends Component {
   state = {
@@ -51,6 +52,7 @@ export default class example extends Component {
     const examples = [
       {component: Animations, info: 'Control via Animated API'},
       {component: GestureControl, info: 'Rotation via Gesture Responder'},
+      {component: Multiple, info: 'Using multiple ModelViews'},
     ];
 
     return (
