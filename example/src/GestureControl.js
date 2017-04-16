@@ -65,8 +65,8 @@ export default class GestureControl extends Component {
         scale={0.01}
         translateZ={-2}
 
-        rotateX={Animated.multiply(rotateX, Math.PI/180)}
-        rotateZ={Animated.multiply(rotateZ, Math.PI/180)}
+        rotateX={rotateX}
+        rotateZ={rotateZ}
 
         style={styles.container}        
       />

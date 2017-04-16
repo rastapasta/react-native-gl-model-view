@@ -9,6 +9,8 @@
 
 @implementation RNGLModelView
 
+const float TWOPIHALF = M_PI/180.0;
+
 - (void)didMoveToWindow
 {
   [super didMoveToWindow];
@@ -65,17 +67,17 @@
   
   if (self.rotateX != 0)
     transform = CATransform3DRotate(transform,
-                                    self.rotateX,
+                                    self.rotateX*TWOPIHALF,
                                     1, 0, 0);
   
   if (self.rotateY != 0)
     transform = CATransform3DRotate(transform,
-                                    self.rotateY,
+                                    self.rotateY*TWOPIHALF,
                                     0, 1, 0);
   
   if (self.rotateZ != 0)
     transform = CATransform3DRotate(transform,
-                                    self.rotateZ,
+                                    self.rotateZ*TWOPIHALF,
                                     0, 0, 1);
   
   self.modelTransform = transform;
