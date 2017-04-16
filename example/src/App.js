@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 import GestureControl from './GestureControl';
+import Slew from './Slew';
 
 export default class example extends Component {
   state = {
@@ -50,7 +51,7 @@ export default class example extends Component {
     examples = [
       {component: Text, info: 'Utilizing the Animation Framework'},
       {component: GestureControl, info: 'Rotation via Gesture Responder'},
-      {component: Text, info: 'Looped left/right slew'},
+      {component: Slew, info: 'Looped left/right slew'},
     ];
 
     return (

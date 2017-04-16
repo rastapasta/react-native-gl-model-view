@@ -19,7 +19,7 @@
   if (self.window) {
     // Render with our applied props!
     [self display];
-    
+
     // Restart animation in case it got stopped because of previous moveOut
     if (self.animated && !self.isAnimating) {
       [self startAnimating];
