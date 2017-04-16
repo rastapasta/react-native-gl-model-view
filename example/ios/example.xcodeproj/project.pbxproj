@@ -15,6 +15,8 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		586A90CD3FA891CC05FADDFA /* libPods-example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 500677E3DF02F90B990E0B27 /* libPods-example.a */; };
+		D9D58EE11EA2F1B0003199F1 /* demon.model in Resources */ = {isa = PBXBuildFile; fileRef = D9D58EDF1EA2F1B0003199F1 /* demon.model */; };
+		D9D58EE21EA2F1B0003199F1 /* demon.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D58EE01EA2F1B0003199F1 /* demon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		2D02E47B1E0B4A5D006451C7 /* example-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "example-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* example-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "example-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		500677E3DF02F90B990E0B27 /* libPods-example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9D58EDF1EA2F1B0003199F1 /* demon.model */ = {isa = PBXFileReference; lastKnownFileType = file; name = demon.model; path = ../data/demon.model; sourceTree = "<group>"; };
+		D9D58EE01EA2F1B0003199F1 /* demon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = demon.png; path = ../data/demon.png; sourceTree = "<group>"; };
 		E70D77B89FE4F967097417E6 /* Pods-example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-example/Pods-example.debug.xcconfig"; sourceTree = "<group>"; };
 		F1AF199F6B45252C6C16BF39 /* Pods-example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-example.release.xcconfig"; path = "Pods/Target Support Files/Pods-example/Pods-example.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -125,6 +129,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				D9D58EDF1EA2F1B0003199F1 /* demon.model */,
+				D9D58EE01EA2F1B0003199F1 /* demon.png */,
 				13B07FAE1A68108700A75B9A /* example */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
@@ -286,6 +292,8 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				D9D58EE11EA2F1B0003199F1 /* demon.model in Resources */,
+				D9D58EE21EA2F1B0003199F1 /* demon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

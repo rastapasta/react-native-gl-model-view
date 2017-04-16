@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.author       = { "author" => "Michael Straßburger <codepoet@cpan.org>" }
   s.platform     = :ios, "7.0"
   s.source       = { :git => "https://github.com/rastaoasta/react-native-gl-model-view.git", :tag => "master" }
-  s.source_files  = "RNGLModelView/**/*.{h,m}"
+  s.source_files  = "**/*.{h,m}"
   s.requires_arc = true
 
   s.dependency "React"

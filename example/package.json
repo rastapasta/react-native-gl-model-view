@@ -2,10 +2,6 @@
   "name": "example",
   "version": "0.1.0",
   "private": true,
-  "devDependencies": {
-    "jest-expo": "^0.3.0",
-    "react-test-renderer": "~15.4.1"
-  },
   "scripts": {
     "start": "react-native start",
     "android": "react-native run-android",
@@ -16,7 +12,8 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "react": "^16.0.0-alpha.3",
-    "react-native": "0.43.3"
+    "react": "16.0.0-alpha.6",
+    "react-native": "0.43.2",
+    "react-native-gl-model-view": "../"
   }
 }

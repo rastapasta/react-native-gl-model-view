@@ -10,6 +10,7 @@ target 'example' do
   pod "Yoga", :path => "#{react_native_path}/ReactCommon/yoga"
   pod 'React', :path => react_native_path, :subspecs => [
     'Core',
+    'DevSupport',
     'RCTActionSheet',
     'RCTAnimation',
     'RCTGeolocation',
