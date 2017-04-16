@@ -1,30 +1,86 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
-  View,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-  Text
+  Animated,
+  Easing
 } from 'react-native';
 
 import ModelView from 'react-native-gl-model-view';
+const AnimatedModelView = Animated.createAnimatedComponent(ModelView);
 
 export default class GestureControl extends Component {
+  constructor() {
+    super();
+    this.state = {
+      animate: false,
+      rotateX: new Animated.Value(270),
+      rotateZ: new Animated.Value(0),
+      translateZ: new Animated.Value(-10),
+
+      fromXY: undefined,
+      valueXY: undefined
+    };
+    Object.keys(this.state).forEach(key =>
+      this.state[key] instanceof Animated.Value &&
+      this.state[key].__makeNative()
+    );
+  }
+
+  componentDidMount() {
+    this.setState({animate: true});
+    Animated.timing(
+      this.state.translateZ, {
+        toValue: -3,
+        useNativeDriver: true,
+        duration: 1000,
+        easing: Easing.elastic(3)
+      }
+    ).start(() => this.setState({animate: false}));
+  }
+
+  onMoveEnd = (e) => {
+    this.setState({fromXY: undefined, animate: false});
+  }
+
+  onMove = (e) => {
+    let { locationX, locationY } = e.nativeEvent,
+      { rotateX, rotateZ, fromXY, valueXY } = this.state;
+    if (!this.state.fromXY) {
+      this.setState({
+        animate: true,
+        fromXY: [locationX, locationY],
+        valueXY: [
+          rotateZ.__getValue(),
+          rotateX.__getValue()
+        ]
+      });
+    } else {
+      rotateZ.setValue(valueXY[0]+(locationX-fromXY[0])/2);
+      rotateX.setValue(valueXY[1]+(locationY-fromXY[1])/2);
+    }
+  }
+
   render() {
+    let { animate, rotateZ, rotateX } = this.state;
+
     return (
-      <ModelView
+      <AnimatedModelView
         model="demon.model"
         texture="demon.png"
 
-        animated={true}
+        onStartShouldSetResponder={(evt) => true}
+        onResponderRelease={this.onMoveEnd}
+        onResponderMove={this.onMove}
+
+        animate={animate}
+
         scale={0.01}
-        
-        style={styles.container}
-        
         translateZ={-2}
-        rotateX={270*Math.PI/180}
+
+        rotateX={Animated.multiply(rotateX, Math.PI/180)}
+        rotateZ={Animated.multiply(rotateZ, Math.PI/180)}
+
+        style={styles.container}        
       />
     );
   }
