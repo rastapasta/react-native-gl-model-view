@@ -37,7 +37,7 @@ Afterwards add following lines to your Podfile:
 
 ```sh
 pod 'React', :path => '../node_modules/react-native'
-pod 'RNGLModelView', :path => '../node_modules/react-native-gl-model-view'
+pod 'RNGLModelView', :path => '../node_modules/react-native-gl-model-view/ios'
 ```
 
 ## Usage

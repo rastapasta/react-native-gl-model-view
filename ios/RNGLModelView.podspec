@@ -6,11 +6,11 @@ Pod::Spec.new do |s|
   s.description  = <<-DESC
                   react-native-gl-model-view
                    DESC
-  s.homepage     = "https://github.com/rastaoasta/react-native-gl-model-view"
+  s.homepage     = "https://github.com/rastapasta/react-native-gl-model-view"
   s.license      = "MIT"
   s.author       = { "author" => "Michael Straßburger <codepoet@cpan.org>" }
   s.platform     = :ios, "7.0"
-  s.source       = { :git => "https://github.com/rastaoasta/react-native-gl-model-view.git", :tag => "master" }
+  s.source       = { :git => "https://github.com/rastapasta/react-native-gl-model-view.git", :tag => "master" }
   s.source_files  = "**/*.{h,m}"
   s.requires_arc = true
 
