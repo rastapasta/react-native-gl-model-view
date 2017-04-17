@@ -4,17 +4,17 @@
 ![dependencies](https://david-dm.org/rastapasta/react-native-gl-model-view.svg)
 ![license](https://img.shields.io/github/license/rastapasta/react-native-gl-model-view.svg)
 
-A `<GLModelView>` component for [react-native](https://github.com/facebook/react-native), allowing you to
+A `<ModelView>` component for [react-native](https://github.com/facebook/react-native), allowing you to
 display and animate any Wavefront .OBJ 3D object. Realized with a native bridge to [GLView](https://github.com/nicklockwood/GLView).
 
 <img src="docs/AnimatedAPI.gif" width="32%"/> <img src="docs/GestureResponder.gif" width="32%"/> <img src="docs/Multiple.gif" width="32%" />
 
 Main features:
 
-* Display, rotate, scale and translate any textured 3D object!
-* Animate with blasting fast 60FPS by using the [Animated API](https://facebook.github.io/react-native/docs/animations.html#using-the-native-driver) native driver
-* Load any Wavefront .OBJ or GLEssentials model
-* Use all texture image formats supported by [UIImage](https://developer.apple.com/library/content/documentation/2DDrawing/Conceptual/DrawingPrintingiOS/LoadingImages/LoadingImages.html#//apple_ref/doc/uid/TP40010156-CH17-SW8)
+* Display, rotate, scale and translate textured 3D models!
+* Animate with blasting fast 60 fps by using the [Animated API](https://facebook.github.io/react-native/docs/animations.html#using-the-native-driver) native driver
+* Supports [Wavefront .OBJ](https://en.wikipedia.org/wiki/Wavefront_.obj_file) and GLEssentials model formats
+* Supports all texture image formats supported by [UIImage](https://developer.apple.com/library/content/documentation/2DDrawing/Conceptual/DrawingPrintingiOS/LoadingImages/LoadingImages.html#//apple_ref/doc/uid/TP40010156-CH17-SW8)
 
 ## Requirements
 
@@ -42,6 +42,8 @@ pod 'RNGLModelView', :path => '../node_modules/react-native-gl-model-view/ios'
 
 ## Usage
 
+### Static
+
 ```javascript
 import ModelView from 'react-native-gl-model-view';
 
@@ -58,7 +60,76 @@ import ModelView from 'react-native-gl-model-view';
 />
 ```
 
-Check out the [example project](https://github.com/rastapasta/react-native-gl-model-view/tree/master/example)!
+### Animated
+
+Make the `<ModelView>` animatable by wrapping it around the Animated API.
+
+```javascript
+import ModelView from 'react-native-gl-model-view';
+import { Animated } from 'react-native';
+
+const AnimatedModelView = Animated.createAnimatedComponent(ModelView);
+```
+
+As this usage of the Animated API is ***kinda*** hacky, you must call the private `__makeNative()` method on all `Animated.Values` before using `Animated.multiply` and such.
+
+```javascript
+constructor() {
+    this.state = {
+        zoom: new Animated.Value(0),
+        // ...
+    };
+    Object.keys(this.state).forEach(key =>
+        this.state[key] instanceof Animated.Value &&
+        this.state[key].__makeNative()
+    );
+}
+```
+
+Now you can apply all the Animated API magic to the `<AnimatedModelView>`'s props.
+```javascript
+render() {
+    <AnimatedModelView
+        ...
+        animate={true}
+        translateZ={this.state.zoom}
+    />
+}
+componentDidMount() {
+    Animated.timing(this.state.zoom, {
+        toValue: -2,
+        useNativeDriver: true,
+        duration: 2000,
+        easing: Easing.bounce
+    }).start();
+}
+```
+
+### Properties
+
+| Prop  | Default  | Type | Description |
+| :------------ |:---------------:| :---------------:| :-----|
+| model | *required* | `string` | Filename of the model, must be included via Xcode |
+| texture | undefined | `string` | Filename of the texture, must be included via Xcode |
+| animate | false | `bool` | Model re-renders each 1/60s when set to `true` |
+| scale | 1 | `number` | Scale all axes of the model by given factor (overwrites scale*) |
+| scaleX | 1 | `number` | Scale X axis by given factor |
+| scaleY | 1 | `number` | Scale Y axis by given factor |
+| scaleZ | 1 | `number` | Scale Z axis by given factor |
+| rotateX | 0 | `number` | Rotate around X axis by given degree |
+| rotateY | 0 | `number` | Rotate around Y axis by given degree |
+| rotateZ | 0 | `number` | Rotate around Z axis by given degree |
+| translateX | 0 | `number` | Translate X position by given points |
+| translateY | 0 | `number` | Translate Y position by given points |
+| translateZ | 0 | `number` | Translate Z position by given points |
+
+### Examples
+
+Check out the [example project](https://github.com/rastapasta/react-native-gl-model-view/tree/master/example/src):
+
+* [Usage of the Animated API](https://github.com/rastapasta/react-native-gl-model-view/blob/master/example/src/Animations.js)
+* [Using the GestureResponder to control rotation](https://github.com/rastapasta/react-native-gl-model-view/blob/master/example/src/GestureControl.js)
+* [Animating multiple ModelViews at once](https://github.com/rastapasta/react-native-gl-model-view/blob/master/example/src/Multiple.js)
 
 To build it, switch into the `example` folder and set it up as following:
 
@@ -70,23 +141,11 @@ $ cd ..
 $ react-native run-ios
 ```
 
-### Properties
+## Backlog
 
-| Prop  | Default  | Type | Description |
-| :------------ |:---------------:| :---------------:| :-----|
-| model | *required* | `string` | Filename of the model, must be included via Xcode |
-| texture | undefined | `string` | Filename of the texture, must be included via Xcode |
-| animate | false | `bool` | Set to `true` re-renders the model each 1/60s |
-| scale | 1 | `number` | Scale all axis of the mode by given factor (overwrites scale*)|
-| scaleX | 1 | `number` | Scale X axis by given factor |
-| scaleY | 1 | `number` | Scale Y axis by given factor |
-| scaleZ | 1 | `number` | Scale Z axis by given factor |
-| rotateX | 0 | `number` | rotate around X axis by given degree |
-| rotateY | 0 | `number` | rotate around Y axis by given degree |
-| rotateZ | 0 | `number` | rotate around Z axis by given degree |
-| translateX | 0 | `number` | translates X position by given factor |
-| translateY | 0 | `number` | translates Y position by given factor |
-| translateZ | 0 | `number` | translates Z position by given factor |
+[ ] Bridge to [GLModel.modelWithData](https://github.com/nicklockwood/GLView/blob/master/GLView/Models/GLModel.m#L424) to allow flexbile model sources
+[ ] Android bridge via [jPCT 3D engine](http://www.jpct.net/jpct-ae/)
+[ ] Animated example in README
 
 ## License
 
