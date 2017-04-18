@@ -71,7 +71,7 @@ import { Animated, Easing } from 'react-native';
 const AnimatedModelView = Animated.createAnimatedComponent(ModelView);
 ```
 
-As this usage of the Animated API is ***kinda*** hacky, you must call the private `__makeNative()` method on all `Animated.Values` before using `Animated.multiply` and such.
+As this usage of the Animated API is *kinda* hacky, you must call the private `__makeNative()` method on all `Animated.Values` before using `Animated.multiply` and such.
 
 ```javascript
 constructor() {
