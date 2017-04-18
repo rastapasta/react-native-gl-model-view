@@ -22,7 +22,7 @@ target 'example' do
     'RCTVibration',
     'RCTWebSocket',
   ]
-  pod "RNGLModelView", :path => "../../ios"
+  pod "RNGLModelView", :path => "../.."
 
 #  use_frameworks!
 #  [

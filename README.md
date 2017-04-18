@@ -37,7 +37,7 @@ Afterwards add following lines to your Podfile:
 
 ```sh
 pod 'React', :path => '../node_modules/react-native'
-pod 'RNGLModelView', :path => '../node_modules/react-native-gl-model-view/ios'
+pod 'RNGLModelView', :path => '../node_modules/react-native-gl-model-view'
 ```
 
 ## Usage
@@ -143,9 +143,8 @@ $ react-native run-ios
 
 ## Backlog
 
-[ ] Bridge to [GLModel.modelWithData](https://github.com/nicklockwood/GLView/blob/master/GLView/Models/GLModel.m#L424) to allow flexbile model sources
-[ ] Android bridge via [jPCT 3D engine](http://www.jpct.net/jpct-ae/)
-[ ] Animated example in README
+* Bridge to [GLModel.modelWithData](https://github.com/nicklockwood/GLView/blob/master/GLView/Models/GLModel.m#L424) to allow flexbile model sources
+* Android bridge via [jPCT 3D engine](http://www.jpct.net/jpct-ae/)
 
 ## License
 
