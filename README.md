@@ -66,7 +66,7 @@ Make the `<ModelView>` animatable by wrapping it around the Animated API.
 
 ```javascript
 import ModelView from 'react-native-gl-model-view';
-import { Animated } from 'react-native';
+import { Animated, Easing } from 'react-native';
 
 const AnimatedModelView = Animated.createAnimatedComponent(ModelView);
 ```

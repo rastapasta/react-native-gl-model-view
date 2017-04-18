@@ -1,5 +1,5 @@
 {
-  "name": "example",
+  "name": "react-native-gl-model-view-example",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,12 +8,17 @@
     "ios": "react-native run-ios",
     "test": "node node_modules/jest/bin/jest.js --watch"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rastapasta/react-native-gl-model-view.git"
+  },
+  "license": "MIT",
   "jest": {
     "preset": "jest-expo"
   },
   "dependencies": {
     "react": "16.0.0-alpha.6",
     "react-native": "0.43.2",
-    "react-native-gl-model-view": "../"
+    "react-native-gl-model-view": "file:../"
   }
 }
