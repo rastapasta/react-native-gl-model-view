@@ -1,7 +1,6 @@
 # react-native-gl-model-view
 
 [![npm version](https://badge.fury.io/js/react-native-gl-model-view.svg)](https://badge.fury.io/js/react-native-gl-model-view)
-![dependencies](https://david-dm.org/rastapasta/react-native-gl-model-view.svg)
 ![license](https://img.shields.io/github/license/rastapasta/react-native-gl-model-view.svg)
 
 A `<ModelView>` component for [react-native](https://github.com/facebook/react-native), allowing you to
@@ -62,7 +61,7 @@ import ModelView from 'react-native-gl-model-view';
 
 ### Animated
 
-Make the `<ModelView>` animatable by wrapping it around the Animated API.
+Make the `<ModelView>`'s native props animatable by wrapping the Animated API around it:
 
 ```javascript
 import ModelView from 'react-native-gl-model-view';
@@ -71,7 +70,7 @@ import { Animated, Easing } from 'react-native';
 const AnimatedModelView = Animated.createAnimatedComponent(ModelView);
 ```
 
-As this usage of the Animated API is *kinda* hacky, you must call the private `__makeNative()` method on all `Animated.Values` before using `Animated.multiply` and such.
+As this usage of the Animated API is *kinda* hacky, you must call the private [__makeNative()](https://github.com/facebook/react-native/blob/master/Libraries/Animated/src/AnimatedImplementation.js#L155) method on all `Animated.Values` before using `Animated.multiply` and such.
 
 ```javascript
 constructor() {
@@ -145,6 +144,11 @@ $ react-native run-ios
 
 * Bridge to [GLModel.modelWithData](https://github.com/nicklockwood/GLView/blob/master/GLView/Models/GLModel.m#L424) to allow flexbile model sources
 * Android bridge via [jPCT 3D engine](http://www.jpct.net/jpct-ae/)
+
+## Special thanks
+
+* [nicklockwood](https://github.com/nicklockwood) for his work on [GLView](https://github.com/nicklockwood/GLView/)
+* [frostney](https://github.com/frostney) for his work on [react-native-create-library](https://github.com/frostney/react-native-create-library) used to bootstrap this project
 
 ## License
 
