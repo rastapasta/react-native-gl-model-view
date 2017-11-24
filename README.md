@@ -180,12 +180,6 @@ $ react-native run-ios
 
 Work in progress
 
-#### For Android
-
-```sh
-
-```
-
 ## Backlog
 
 * Bridge to [GLModel.modelWithData](https://github.com/nicklockwood/GLView/blob/master/GLView/Models/GLModel.m#L424) to allow flexbile model sources
