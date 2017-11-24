@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { requireNativeComponent } from 'react-native';
+import { requireNativeComponent, View } from 'react-native';
 import PropTypes from 'prop-types'
 
 class GLModelView extends Component {
@@ -9,6 +9,7 @@ class GLModelView extends Component {
 }
 
 GLModelView.propTypes = {
+  ...View.propTypes,
   animate: PropTypes.bool,
 
   model: PropTypes.string.isRequired,
