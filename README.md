@@ -180,12 +180,12 @@ $ react-native run-ios
 
 * Bridge to [GLModel.modelWithData](https://github.com/nicklockwood/GLView/blob/master/GLView/Models/GLModel.m#L424) to allow flexbile model sources
 * Android bridge via [jPCT 3D engine](http://www.jpct.net/jpct-ae/) (in progress)
+* Add .model support to Android
 
 ## Special thanks
 
 * [nicklockwood](https://github.com/nicklockwood) for his work on [GLView](https://github.com/nicklockwood/GLView/)
 * [frostney](https://github.com/frostney) for his work on [react-native-create-library](https://github.com/frostney/react-native-create-library) used to bootstrap this project
-* Add .model support to Android
 
 ## License
 
