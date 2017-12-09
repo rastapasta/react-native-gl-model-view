@@ -184,7 +184,6 @@ Work in progress
 
 * Bridge to [GLModel.modelWithData](https://github.com/nicklockwood/GLView/blob/master/GLView/Models/GLModel.m#L424) to allow flexbile model sources
 * Android bridge via [jPCT 3D engine](http://www.jpct.net/jpct-ae/) (in progress)
-* Add .model support to Android
 * Add Android support for the example project
 
 ## Special thanks

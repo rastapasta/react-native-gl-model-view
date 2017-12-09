@@ -3,6 +3,7 @@ package com.rnglmodelview;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 
+import com.rnglmodelview.exceptions.ModelObjectNotSupportedException;
 import com.threed.jpct.Loader;
 import com.threed.jpct.Matrix;
 import com.threed.jpct.Object3D;
@@ -121,8 +122,11 @@ public class RNGLModelView extends GLSurfaceView {
         case "asc":
           model = Loader.loadASC(modelStream, 1, false);
           break;
+        case "model":
+          model = RNGLModelViewModelLoader.loadMODEL(modelStream);
+          break;
       }
-    } catch (IOException e) {
+    } catch (IOException | ModelObjectNotSupportedException e) {
       e.printStackTrace();
     }
 
