@@ -39,6 +39,7 @@ public class RNGLModelViewRenderer implements GLSurfaceView.Renderer {
   private static RNGLModelViewRenderer master = null;
   private GL10 previousGL = null;
   private float scale = 0.05f;
+  private boolean mAnimate = false;
 
   public RNGLModelViewRenderer(Context context) {
     Texture.defaultToMipmapping(true);
@@ -103,10 +104,18 @@ public class RNGLModelViewRenderer implements GLSurfaceView.Renderer {
     }
 
     previousGL = gl;
+
+    renderFrame();
   }
 
   @Override
   public void onDrawFrame(GL10 gl) {
+    if (mAnimate) {
+      renderFrame();
+    }
+  }
+
+  private void renderFrame() {
     fb.clear(clearColor);
     world.renderScene(fb);
     world.draw(fb);
@@ -120,4 +129,6 @@ public class RNGLModelViewRenderer implements GLSurfaceView.Renderer {
   public void setTexture(Texture texture) {
     mTexture = texture;
   }
+
+  public void setAnimate(boolean animate) { mAnimate = animate; }
 }

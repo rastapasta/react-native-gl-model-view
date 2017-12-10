@@ -48,6 +48,10 @@ public class RNGLModelView extends GLSurfaceView {
     mRenderer.setTexture(loadTexture(textureFileName));
   }
 
+  public void setAnimate(@Nullable boolean animate) {
+    mRenderer.setAnimate(animate);
+  }
+
   public void setModelRotateX(@Nullable float rotateX) {
     mModelRotateX = rotateX;
     updateModelTransform();
