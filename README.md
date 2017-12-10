@@ -13,7 +13,7 @@ Main features:
 * Display, rotate, scale and translate textured 3D models!
 * Animate with blasting fast 60 fps by using the [Animated API](https://facebook.github.io/react-native/docs/animations.html#using-the-native-driver) native driver
 * Supports [Wavefront .OBJ](https://en.wikipedia.org/wiki/Wavefront_.obj_file) and GLEssentials model formats (iOS)
-* Supports [Wavefront .OBJ](https://en.wikipedia.org/wiki/Wavefront_.obj_file), [Autodesk 3DS](https://en.wikipedia.org/wiki/.3ds), [Quake 2 MD2](https://en.wikipedia.org/wiki/MD2_(file_format)) and [ASC](https://codeyarns.com/2011/08/17/asc-file-format-for-3d-points/) (Android)
+* Supports [Wavefront .OBJ](https://en.wikipedia.org/wiki/Wavefront_.obj_file), [Autodesk 3DS](https://en.wikipedia.org/wiki/.3ds), [Quake 2 MD2](https://en.wikipedia.org/wiki/MD2_(file_format)), [ASC](https://codeyarns.com/2011/08/17/asc-file-format-for-3d-points/) and GLEssentials model formats (Android)
 * Supports all texture image formats supported by [UIImage](https://developer.apple.com/library/content/documentation/2DDrawing/Conceptual/DrawingPrintingiOS/LoadingImages/LoadingImages.html#//apple_ref/doc/uid/TP40010156-CH17-SW8)
 
 ## Requirements
@@ -178,13 +178,16 @@ $ react-native run-ios
 
 #### For Android
 
-Work in progress
+```sh
+$ npm install
+$ react-native link
+$ react-native run-android
+```
 
 ## Backlog
 
 * Bridge to [GLModel.modelWithData](https://github.com/nicklockwood/GLView/blob/master/GLView/Models/GLModel.m#L424) to allow flexbile model sources
-* Android bridge via [jPCT 3D engine](http://www.jpct.net/jpct-ae/) (in progress)
-* Add Android support for the example project
+* Update to the latest react-native version to fix the Android gesture responder bug
 
 ## Special thanks
 
