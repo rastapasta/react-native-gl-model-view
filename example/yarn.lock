@@ -2364,8 +2364,8 @@ react-devtools-core@^2.0.8:
     cross-env "^3.1.4"
     ws "^2.0.3"
 
-react-native-gl-model-view@../:
-  version "1.0.0"
+"react-native-gl-model-view@file:..":
+  version "1.0.1"
 
 react-native@0.43.2:
   version "0.43.2"

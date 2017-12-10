@@ -40,6 +40,14 @@ public class RNGLModelView extends GLSurfaceView {
 
   public void setModel(String modelFileName) {
     mModel = loadModel(modelFileName);
+
+    // In jpct, the coordinate system is rotated 180 degrees around x and Object3D forces the mesh
+    // into that orientation. Since we want to keep the OpenGL-like coordinate system, we force the
+    // mesh back into its previous rotation.
+    mModel.rotateX((float)Math.PI);
+    mModel.rotateMesh();
+    mModel.clearRotation();
+
     mRenderer.setModel(mModel);
     updateModelTransform();
   }

@@ -63,14 +63,18 @@ public class RNGLModelViewRenderer implements GLSurfaceView.Renderer {
       light = new Light(world);
       light.enable();
       light.setIntensity(51, 51, 51);
-      light.setPosition(SimpleVector.create(0, 0, 1));
+      light.setPosition(SimpleVector.create(0, 16, 6));
 
       // In jpct, the coordinate system is rotated 180 degrees around x compared to the OpenGL
       // coordinate system, which means that y faces towards the bottom and z faces away from the
       // screen. Since most engines and models use the OpenGL coordinate system, we fix the
       // rotation on the camera.
       Camera cam = world.getCamera();
+      SimpleVector pos = cam.getPosition();
       cam.rotateX((float)Math.PI);
+
+      // We move the camera to make the iOS and Android views look alike as much as possible
+      cam.setPosition(0, 16, 5);
 
       if (mModel != null) {
         TextureManager tm = TextureManager.getInstance();

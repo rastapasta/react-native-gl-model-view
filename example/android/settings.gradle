@@ -1,0 +1,5 @@
+rootProject.name = 'rnglmodelviewexample'
+include ':react-native-gl-model-view'
+project(':react-native-gl-model-view').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-gl-model-view/android')
+
+include ':app'
