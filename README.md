@@ -4,7 +4,7 @@
 ![license](https://img.shields.io/github/license/rastapasta/react-native-gl-model-view.svg)
 
 A `<ModelView>` component for [react-native](https://github.com/facebook/react-native), allowing you to
-display and animate any Wavefront .OBJ 3D object. Realized with a native bridge to [GLView](https://github.com/nicklockwood/GLView).
+display and animate any Wavefront .OBJ 3D object. Realized with a native bridge to [GLView](https://github.com/nicklockwood/GLView) for iOS and a native bridge to [jPCT-AE](http://www.jpct.net/jpct-ae/) for Android.
 
 <img src="docs/AnimatedAPI.gif" width="32%"/> <img src="docs/GestureResponder.gif" width="32%"/> <img src="docs/Multiple.gif" width="32%" />
 
@@ -12,23 +12,26 @@ Main features:
 
 * Display, rotate, scale and translate textured 3D models!
 * Animate with blasting fast 60 fps by using the [Animated API](https://facebook.github.io/react-native/docs/animations.html#using-the-native-driver) native driver
-* Supports [Wavefront .OBJ](https://en.wikipedia.org/wiki/Wavefront_.obj_file) and GLEssentials model formats
+* Supports [Wavefront .OBJ](https://en.wikipedia.org/wiki/Wavefront_.obj_file) and GLEssentials model formats (iOS)
+* Supports [Wavefront .OBJ](https://en.wikipedia.org/wiki/Wavefront_.obj_file), [Autodesk 3DS](https://en.wikipedia.org/wiki/.3ds), [Quake 2 MD2](https://en.wikipedia.org/wiki/MD2_(file_format)), [ASC](https://codeyarns.com/2011/08/17/asc-file-format-for-3d-points/) and GLEssentials model formats (Android)
 * Supports all texture image formats supported by [UIImage](https://developer.apple.com/library/content/documentation/2DDrawing/Conceptual/DrawingPrintingiOS/LoadingImages/LoadingImages.html#//apple_ref/doc/uid/TP40010156-CH17-SW8)
 
 ## Requirements
 
-* iOS - feel free to PR an Android port ;)
-* Cocoapods - to install the [GLView](https://github.com/nicklockwood/GLView) dependency.
+* Cocoapods (for iOS) - to install the [GLView](https://github.com/nicklockwood/GLView) dependency.
 
 ## Getting started
 
 You can install and try linking the project automatically:
 
-`$ react-native add react-native-gl-model-view`
+```sh
+$ npm install --save react-native-gl-model-view
+$ react-native link
+```
 
 or do it manually as described below:
 
-### Manual installation
+### iOS Manual installation
 
 `$ npm install --save react-native-gl-model-view`
 
@@ -39,7 +42,38 @@ pod 'React', :path => '../node_modules/react-native'
 pod 'RNGLModelView', :path => '../node_modules/react-native-gl-model-view'
 ```
 
+### Android Manual installation
+
+`$ npm install --save react-native-gl-model-view`
+
+Afterwards, add the following lines to the **android/settings.gradle** file:
+
+```gradle
+include ':react-native-gl-model-view'
+project(':react-native-gl-model-view').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-gl-model-view/android/app')
+```
+
+Finally, add the react-native-gl-model-view project as a dependency of the **android/app/build.gradle** file:
+
+```gradle
+dependencies {
+    compile project(':react-native-gl-model-view')
+    ...
+}
+```
+
+
 ## Usage
+
+### Model and texture loading
+
+#### iOS
+
+To load a model on iOS, you need to put the file at the root of your Xcode project via the editor.
+
+#### Android
+
+To load a model on Android, you need to place the model in the **android/app/src/main/assets** folder. Create a new folder if it doesn't exist yet.
 
 ### Static
 
@@ -132,6 +166,8 @@ Check out the [example project](https://github.com/rastapasta/react-native-gl-mo
 
 To build it, switch into the `example` folder and set it up as following:
 
+#### For iOS
+
 ```sh
 $ npm install
 $ cd ios
@@ -140,10 +176,18 @@ $ cd ..
 $ react-native run-ios
 ```
 
+#### For Android
+
+```sh
+$ npm install
+$ react-native link
+$ react-native run-android
+```
+
 ## Backlog
 
 * Bridge to [GLModel.modelWithData](https://github.com/nicklockwood/GLView/blob/master/GLView/Models/GLModel.m#L424) to allow flexbile model sources
-* Android bridge via [jPCT 3D engine](http://www.jpct.net/jpct-ae/)
+* Update to the latest react-native version to fix the Android gesture responder bug
 
 ## Special thanks
 
