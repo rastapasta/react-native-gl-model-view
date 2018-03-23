@@ -16,6 +16,5 @@ $ react-native run-ios
 
 ```sh
 $ npm install
-$ react-native link
 $ react-native run-android
 ```
