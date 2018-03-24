@@ -16,9 +16,11 @@
   "jest": {
     "preset": "jest-expo"
   },
+  "localDependencies": {
+    "react-native-gl-model-view": "../"
+  },
   "dependencies": {
     "react": "^16.0.0-alpha.12",
-    "react-native": "^0.47.2",
-    "react-native-gl-model-view": "file:../"
+    "react-native": "^0.47.2"
   }
 }
