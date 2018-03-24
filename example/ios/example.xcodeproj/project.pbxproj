@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
@@ -17,6 +16,7 @@
 		586A90CD3FA891CC05FADDFA /* libPods-example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 500677E3DF02F90B990E0B27 /* libPods-example.a */; };
 		D9D58EE11EA2F1B0003199F1 /* demon.model in Resources */ = {isa = PBXBuildFile; fileRef = D9D58EDF1EA2F1B0003199F1 /* demon.model */; };
 		D9D58EE21EA2F1B0003199F1 /* demon.png in Resources */ = {isa = PBXBuildFile; fileRef = D9D58EE01EA2F1B0003199F1 /* demon.png */; };
+		7924CA8B942942119553D02B /* libRNGLModelView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D354E0BE01884F9DB8E1FE19 /* libRNGLModelView.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +53,8 @@
 		D9D58EE01EA2F1B0003199F1 /* demon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = demon.png; path = ../data/demon.png; sourceTree = "<group>"; };
 		E70D77B89FE4F967097417E6 /* Pods-example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-example/Pods-example.debug.xcconfig"; sourceTree = "<group>"; };
 		F1AF199F6B45252C6C16BF39 /* Pods-example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-example.release.xcconfig"; path = "Pods/Target Support Files/Pods-example/Pods-example.release.xcconfig"; sourceTree = "<group>"; };
+		F39E4E93237F443BBED2B1ED /* RNGLModelView.xcodeproj */ = {isa = PBXFileReference; name = "RNGLModelView.xcodeproj"; path = "../node_modules/react-native-gl-model-view/ios/RNGLModelView.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		D354E0BE01884F9DB8E1FE19 /* libRNGLModelView.a */ = {isa = PBXFileReference; name = "libRNGLModelView.a"; path = "libRNGLModelView.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				586A90CD3FA891CC05FADDFA /* libPods-example.a in Frameworks */,
+				7924CA8B942942119553D02B /* libRNGLModelView.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,6 +125,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				F39E4E93237F443BBED2B1ED /* RNGLModelView.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -236,7 +240,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 610;
 				ORGANIZATIONNAME = rastapasta;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -471,6 +475,14 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/example.app/example";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-gl-model-view/ios/**",
+				);
 			};
 			name = Debug;
 		};
@@ -488,6 +500,14 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/example.app/example";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-gl-model-view/ios/**",
+				);
 			};
 			name = Release;
 		};
@@ -509,6 +529,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.rastapasta.glmodelview;
 				PRODUCT_NAME = example;
 				VERSIONING_SYSTEM = "apple-generic";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-gl-model-view/ios/**",
+				);
 			};
 			name = Debug;
 		};
@@ -529,6 +553,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.rastapasta.glmodelview;
 				PRODUCT_NAME = example;
 				VERSIONING_SYSTEM = "apple-generic";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-gl-model-view/ios/**",
+				);
 			};
 			name = Release;
 		};
@@ -555,6 +583,14 @@
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-gl-model-view/ios/**",
+				);
 			};
 			name = Debug;
 		};
@@ -581,6 +617,14 @@
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-gl-model-view/ios/**",
+				);
 			};
 			name = Release;
 		};
@@ -602,6 +646,10 @@
 				SDKROOT = appletvos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/example-tvOS.app/example-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 			};
 			name = Debug;
 		};
@@ -623,6 +671,10 @@
 				SDKROOT = appletvos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/example-tvOS.app/example-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 			};
 			name = Release;
 		};
