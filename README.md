@@ -183,6 +183,8 @@ $ npm install
 $ react-native run-android
 ```
 
+Note: Sometimes, the `react-native run-ios` and `react-native run-android` commands fail to automatically launch the development server. If you get a "No bundle URL present" error message, open a new console window and type `npm start` in the example folder. This will launch the development server and let you successfully run the Android or ios builds with their respective commands.
+
 ## Backlog
 
 * Bridge to [GLModel.modelWithData](https://github.com/nicklockwood/GLView/blob/master/GLView/Models/GLModel.m#L424) to allow flexbile model sources
