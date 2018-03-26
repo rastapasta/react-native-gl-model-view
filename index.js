@@ -1,5 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { requireNativeComponent, View } from 'react-native';
+import PropTypes from 'prop-types';
 
 class GLModelView extends Component {
   render() {

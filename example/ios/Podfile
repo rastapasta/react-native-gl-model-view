@@ -9,6 +9,7 @@ target 'example' do
   react_native_path = "../node_modules/react-native"
   pod "Yoga", :path => "#{react_native_path}/ReactCommon/yoga"
   pod 'React', :path => react_native_path, :subspecs => [
+    'CxxBridge',
     'Core',
     'DevSupport',
     'RCTActionSheet',
@@ -23,6 +24,9 @@ target 'example' do
     'RCTWebSocket',
   ]
   pod "RNGLModelView", :path => "../.."
+
+  pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
+  pod 'GLog', :podspec => '../node_modules/react-native/third-party-podspecs/GLog.podspec'
 
 #  use_frameworks!
 #  [

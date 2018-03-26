@@ -164,30 +164,43 @@ Check out the [example project](https://github.com/rastapasta/react-native-gl-mo
 * [Using the GestureResponder to control rotation](https://github.com/rastapasta/react-native-gl-model-view/blob/master/example/src/GestureControl.js)
 * [Animating multiple ModelViews at once](https://github.com/rastapasta/react-native-gl-model-view/blob/master/example/src/Multiple.js)
 
-To build it, switch into the `example` folder and set it up as following:
+To install the dependencies, switch into the `example` folder and set it up as following:
 
-#### For iOS
+#### For npm < 5
 
 ```sh
 $ npm install
+```
+
+#### For npm >= 5
+
+npm 5 changed the way `npm install` installs and links local modules. Previously, if a dependency in package.json was using the `file: <relative/path/to/file` protocol, npm install would copy the folder inside node_modules as if it were downloading a module from the npm registry. But since npm 5, `npm install` only creates a symlink to the module. Since the react-native packager doesn't work well with symlinks, it cannot find the react module when running the app. A workaround is to install "instal-local", which is a tool made specifically to fix this npm 5 problem:
+
+```sh
+$ npm install -g install-local
+$ install-local
+```
+
+To build and run the app, set it up as following:
+
+## iOS
+
+```sh
 $ cd ios
 $ pod install
 $ cd ..
 $ react-native run-ios
 ```
 
-#### For Android
+## Android
 
 ```sh
-$ npm install
-$ react-native link
 $ react-native run-android
 ```
 
 ## Backlog
 
 * Bridge to [GLModel.modelWithData](https://github.com/nicklockwood/GLView/blob/master/GLView/Models/GLModel.m#L424) to allow flexbile model sources
-* Update to the latest react-native version to fix the Android gesture responder bug
 
 ## Special thanks
 
