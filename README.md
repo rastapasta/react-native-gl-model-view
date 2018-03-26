@@ -204,6 +204,7 @@ $ react-native run-android
 
 ## Special thanks
 
+* [PatriceVignola](https://github.com/PatriceVignola) for the Android part of this library!
 * [nicklockwood](https://github.com/nicklockwood) for his work on [GLView](https://github.com/nicklockwood/GLView/)
 * [frostney](https://github.com/frostney) for his work on [react-native-create-library](https://github.com/frostney/react-native-create-library) used to bootstrap this project
 
