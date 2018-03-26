@@ -6,8 +6,10 @@ platform :ios, '8.0'
 source 'https://github.com/CocoaPods/Specs.git'
 
 target 'example' do
-  react_native_path = "../node_modules/react-native"
-  pod "Yoga", :path => "#{react_native_path}/ReactCommon/yoga"
+  react_native_path = '../node_modules/react-native'
+  third_party_path = react_native_path+'/third-party-podspecs'
+
+  pod 'Yoga', :path => "#{react_native_path}/ReactCommon/yoga"
   pod 'React', :path => react_native_path, :subspecs => [
     'CxxBridge',
     'Core',
@@ -23,15 +25,9 @@ target 'example' do
     'RCTVibration',
     'RCTWebSocket',
   ]
-  pod "RNGLModelView", :path => "../.."
+  pod 'RNGLModelView', :path => '../..'
 
-  pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
-  pod 'GLog', :podspec => '../node_modules/react-native/third-party-podspecs/GLog.podspec'
-
-#  use_frameworks!
-#  [
-#    'GoogleMaps'
-#  ].each do |lib|
-#    pod lib
-#  end
+  pod 'Folly', :podspec => "#{third_party_path}/Folly.podspec"
+  pod 'GLog', :podspec => "#{third_party_path}/GLog.podspec"
+  pod 'DoubleConversion', :podspec => "#{third_party_path}/DoubleConversion.podspec"
 end
