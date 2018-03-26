@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   Animated,
+  Platform
 } from 'react-native';
 
 import ModelView from 'react-native-gl-model-view';
@@ -13,7 +14,7 @@ export default class GestureControl extends Component {
     this.state = {
       animate: false,
 
-      rotateX: new Animated.Value(270),
+      rotateX: new Animated.Value(0),
       rotateZ: new Animated.Value(0),
 
       fromXY: undefined,
@@ -26,24 +27,27 @@ export default class GestureControl extends Component {
   }
 
   onMoveEnd = () => {
-    this.setState({fromXY: undefined, animate: false});
+    this.setState({
+      fromXY: undefined,
+      animate: false
+    });
   }
 
   onMove = (e) => {
-    let { locationX, locationY } = e.nativeEvent,
+    let { pageX, pageY } = e.nativeEvent,
       { rotateX, rotateZ, fromXY, valueXY } = this.state;
     if (!this.state.fromXY) {
       this.setState({
         animate: true,
-        fromXY: [locationX, locationY],
+        fromXY: [pageX, pageY],
         valueXY: [
           rotateZ.__getValue(),
           rotateX.__getValue()
         ]
       });
     } else {
-      rotateZ.setValue(valueXY[0]+(locationX-fromXY[0])/2);
-      rotateX.setValue(valueXY[1]+(locationY-fromXY[1])/2);
+      rotateZ.setValue(valueXY[0]+(pageX-fromXY[0])/2);
+      rotateX.setValue(valueXY[1]+(Platform.OS === 'ios' ? 1 : -1)*(pageY-fromXY[1])/2);
     }
   }
 
@@ -74,8 +78,4 @@ export default class GestureControl extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'transparent'
-  },
-});
+  container: {flex: 1,backgroundColor: 'transparent'}});
