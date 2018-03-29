@@ -75,7 +75,7 @@ public class RNGLModelViewRenderer implements GLSurfaceView.Renderer {
       // rotation on the camera.
       Camera cam = world.getCamera();
       cam.rotateX((float)Math.PI);
-      cam.setPosition(0, 0, 0);
+      cam.setPosition(0, 0, 1);
 
       if (mModel != null) {
         TextureManager tm = TextureManager.getInstance();
