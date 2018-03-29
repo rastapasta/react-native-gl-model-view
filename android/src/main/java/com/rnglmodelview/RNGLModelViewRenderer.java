@@ -21,7 +21,12 @@ import com.threed.jpct.util.MemoryHelper;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+interface RendererDelegate {
+  void onAddedToWorld(Object3D model);
+}
+
 public class RNGLModelViewRenderer implements GLSurfaceView.Renderer {
+  public RendererDelegate delegate;
 
   private boolean hasToCreateBuffer = false;
   private int w = 0;
@@ -38,7 +43,6 @@ public class RNGLModelViewRenderer implements GLSurfaceView.Renderer {
   private Context mContext;
   private static RNGLModelViewRenderer master = null;
   private GL10 previousGL = null;
-  private float scale = 0.05f;
   private boolean mAnimate = false;
 
   public RNGLModelViewRenderer(Context context) {
@@ -63,18 +67,15 @@ public class RNGLModelViewRenderer implements GLSurfaceView.Renderer {
       light = new Light(world);
       light.enable();
       light.setIntensity(51, 51, 51);
-      light.setPosition(SimpleVector.create(0, 16, 6));
+      light.setPosition(SimpleVector.create(0, 0, 1));
 
       // In jpct, the coordinate system is rotated 180 degrees around x compared to the OpenGL
       // coordinate system, which means that y faces towards the bottom and z faces away from the
       // screen. Since most engines and models use the OpenGL coordinate system, we fix the
       // rotation on the camera.
       Camera cam = world.getCamera();
-      SimpleVector pos = cam.getPosition();
       cam.rotateX((float)Math.PI);
-
-      // We move the camera to make the iOS and Android views look alike as much as possible
-      cam.setPosition(0, 16, 5);
+      cam.setPosition(0, 0, 0);
 
       if (mModel != null) {
         TextureManager tm = TextureManager.getInstance();
@@ -94,10 +95,12 @@ public class RNGLModelViewRenderer implements GLSurfaceView.Renderer {
           mModel.setTexture(ti);
         }
 
-        mModel.setSpecularLighting(true);
         mModel.build();
-        mModel.strip();
         world.addObject(mModel);
+
+        if (delegate != null) {
+          delegate.onAddedToWorld(mModel);
+        }
       }
 
       MemoryHelper.compact();

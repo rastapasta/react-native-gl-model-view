@@ -11,10 +11,11 @@ import com.threed.jpct.Texture;
 
 import java.io.IOException;
 import java.io.InputStream;
+import com.threed.jpct.SimpleVector;
 
 import javax.annotation.Nullable;
 
-public class RNGLModelView extends GLSurfaceView {
+public class RNGLModelView extends GLSurfaceView implements RendererDelegate {
 
   private RNGLModelViewRenderer mRenderer;
 
@@ -29,6 +30,7 @@ public class RNGLModelView extends GLSurfaceView {
   private float mModelScaleX = 1;
   private float mModelScaleY = 1;
   private float mModelScaleZ = 1;
+  private SimpleVector mMeshTranslate = new SimpleVector();
 
   public RNGLModelView(Context context) {
     super(context);
@@ -36,19 +38,31 @@ public class RNGLModelView extends GLSurfaceView {
 
     mRenderer = new RNGLModelViewRenderer(context);
     setRenderer(mRenderer);
+    mRenderer.delegate = this;
   }
 
   public void setModel(String modelFileName) {
     mModel = loadModel(modelFileName);
-
-    // In jpct, the coordinate system is rotated 180 degrees around x and Object3D forces the mesh
-    // into that orientation. Since we want to keep the OpenGL-like coordinate system, we force the
-    // mesh back into its previous rotation.
-    mModel.rotateX((float)Math.PI);
-    mModel.rotateMesh();
-    mModel.clearRotation();
-
     mRenderer.setModel(mModel);
+  }
+
+  public void onAddedToWorld(Object3D model) {
+    if (model == null) return;
+
+    // We cache the origin before setting it to (0, 0, 0) since we will create the matrix manually when
+    // updating the transform
+    mMeshTranslate = model.getCenter();
+
+    Matrix meshTranslationMatrix = new Matrix();
+    meshTranslationMatrix.translate(-mMeshTranslate.x, -mMeshTranslate.y, -mMeshTranslate.z);
+    model.setTranslationMatrix(meshTranslationMatrix);
+    model.translateMesh();
+    model.clearTranslation();
+
+    model.setSpecularLighting(true);
+    model.build();
+    model.strip();
+
     updateModelTransform();
   }
 
@@ -160,25 +174,36 @@ public class RNGLModelView extends GLSurfaceView {
   }
 
   private void updateModelTransform() {
-    if (mModel != null) {
-      Matrix rotationMatrix = new Matrix();
+    if (mModel == null) return;
 
-      // First, we scale the identity matrix
-      rotationMatrix.setRow(0, mModelScaleX, 0, 0, 0);
-      rotationMatrix.setRow(1, 0, mModelScaleY, 0, 0);
-      rotationMatrix.setRow(2, 0, 0, mModelScaleZ, 0);
+    Matrix scaleMatrix = new Matrix();
+    scaleMatrix.setRow(0, mModelScaleX, 0, 0, 0);
+    scaleMatrix.setRow(1, 0, mModelScaleY, 0, 0);
+    scaleMatrix.setRow(2, 0, 0, mModelScaleZ, 0);
 
-      // Second, we rotate the scaled matrix
-      rotationMatrix.rotateZ((float)Math.toRadians(mModelRotateZ));
-      rotationMatrix.rotateY((float)Math.toRadians(mModelRotateY));
-      rotationMatrix.rotateX((float)Math.toRadians(mModelRotateX));
+    Matrix rotationMatrix = new Matrix();
+    rotationMatrix.rotateZ((float)Math.toRadians(mModelRotateZ));
+    rotationMatrix.rotateY((float)Math.toRadians(mModelRotateY));
+    rotationMatrix.rotateX((float)Math.toRadians(mModelRotateX + 180)); // jPCT is upside down, so we add 180
 
-      // Finally, we create the translation matrix
-      Matrix translatonMatrix = new Matrix();
-      translatonMatrix.translate(mModelTranslateX, mModelTranslateY, mModelTranslateZ);
+    // Most 3D applications pre-multiply the matrices that way: Transform = T * R * S * Origin. But since
+    // jPCT only scales in the local space by default, the origin of the mesh is never adjusted for the scale.
+    // Therefore, we have to do it manually by creating our own origin translation matrix and scaling it
+    // ourselves. This is why we cached and cleared the origin after loading the model. The result will
+    // essentially be the following operation: Transform = T * R * S * CachedTranslation * IdentityOrigin.
 
-      mModel.setTranslationMatrix(translatonMatrix);
-      mModel.setRotationMatrix(rotationMatrix);
-    }
+    // First, we scale the cached mesh translation
+    Matrix translationMatrix = new Matrix();
+    translationMatrix.translate(mMeshTranslate.x, mMeshTranslate.y, mMeshTranslate.z);
+    translationMatrix.matMul(scaleMatrix);
+
+    // Then, we rotate the scaled model
+    scaleMatrix.matMul(rotationMatrix);
+
+    // Finally, we can translate the model to its final position regardless of the scale
+    translationMatrix.translate(mModelTranslateX, mModelTranslateY, mModelTranslateZ);
+
+    mModel.setRotationMatrix(scaleMatrix);
+    mModel.setTranslationMatrix(translationMatrix);
   }
 }
