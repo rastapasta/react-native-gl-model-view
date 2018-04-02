@@ -39,7 +39,7 @@ public class RNGLModelViewRenderer implements GLSurfaceView.Renderer {
   private Texture mTexture;
   private GLSLShader shader;
   private Light light;
-  private RGBColor clearColor = new RGBColor(255, 255, 255);
+  private RGBColor clearColor = new RGBColor(0, 0, 0, 0);
   private Context mContext;
   private static RNGLModelViewRenderer master = null;
   private GL10 previousGL = null;

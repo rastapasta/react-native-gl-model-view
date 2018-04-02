@@ -12,6 +12,7 @@ import com.threed.jpct.Texture;
 import java.io.IOException;
 import java.io.InputStream;
 import com.threed.jpct.SimpleVector;
+import android.graphics.PixelFormat;
 
 import javax.annotation.Nullable;
 
@@ -34,7 +35,11 @@ public class RNGLModelView extends GLSurfaceView implements RendererDelegate {
 
   public RNGLModelView(Context context) {
     super(context);
+
     setEGLContextClientVersion(2);
+    setZOrderOnTop(true);
+    setEGLConfigChooser(8, 8, 8, 8, 16, 0);
+    getHolder().setFormat(PixelFormat.RGBA_8888);
 
     mRenderer = new RNGLModelViewRenderer(context);
     setRenderer(mRenderer);
