@@ -14,6 +14,7 @@ GLModelView.propTypes = {
 
   model: PropTypes.string.isRequired,
   texture: PropTypes.string,
+  tint: PropTypes.object,
 
   rotateX: PropTypes.number,
   rotateY: PropTypes.number,

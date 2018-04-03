@@ -114,6 +114,7 @@ export default class Animations extends Component {
         <AnimatedModelView
           model="demon.model"
           texture="demon.png"
+          tint={{r: 1.0, g: 1.0, b: 1.0, a: 1.0}}
 
           animate={true}
 
@@ -123,7 +124,7 @@ export default class Animations extends Component {
           rotateX={rotateX}
           rotateZ={rotateZ}
 
-          style={styles.container}
+          style={styles.view}
         />
         <Animated.View style={[styles.buttons, {transform:[{translateY: uiPosition}]}]}>
           {this.renderButton('zoom in', this.zoom.bind(this, 0.8))}
@@ -140,6 +141,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'transparent'
+  },
+  view: {
+    flex: 1,
+    backgroundColor: '#ffe2e2'
   },
   buttons: {
     height: 50,

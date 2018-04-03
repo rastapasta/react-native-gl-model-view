@@ -3,7 +3,7 @@ package com.rnglmodelview;
 import android.content.Context;
 import android.content.res.Resources;
 import android.opengl.GLSurfaceView;
-
+import com.rnglmodelview.TintEffect;
 import com.threed.jpct.Camera;
 import com.threed.jpct.FrameBuffer;
 import com.threed.jpct.GLSLShader;
@@ -15,9 +15,8 @@ import com.threed.jpct.SimpleVector;
 import com.threed.jpct.Texture;
 import com.threed.jpct.TextureInfo;
 import com.threed.jpct.TextureManager;
-import com.threed.jpct.World;
 import com.threed.jpct.util.MemoryHelper;
-
+import com.threed.jpct.World;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
@@ -37,9 +36,10 @@ public class RNGLModelViewRenderer implements GLSurfaceView.Renderer {
   private World world;
   private Object3D mModel;
   private Texture mTexture;
+  private RGBColor mModelTint;
   private GLSLShader shader;
   private Light light;
-  private RGBColor clearColor = new RGBColor(255, 255, 255);
+  private RGBColor clearColor = new RGBColor(0, 0, 0, 0);
   private Context mContext;
   private static RNGLModelViewRenderer master = null;
   private GL10 previousGL = null;
@@ -78,23 +78,7 @@ public class RNGLModelViewRenderer implements GLSurfaceView.Renderer {
       cam.setPosition(0, 0, 1);
 
       if (mModel != null) {
-        TextureManager tm = TextureManager.getInstance();
-
-        if (mTexture == null) {
-          if (tm.containsTexture("texture")) {
-            tm.removeTexture("texture");
-          }
-        } else {
-          if (tm.containsTexture("texture")) {
-            tm.replaceTexture("texture", mTexture);
-          } else {
-            tm.addTexture("texture", mTexture);
-          }
-
-          TextureInfo ti = new TextureInfo(TextureManager.getInstance().getTextureID("texture"));
-          mModel.setTexture(ti);
-        }
-
+        updateTexture();
         mModel.build();
         world.addObject(mModel);
 
@@ -122,6 +106,40 @@ public class RNGLModelViewRenderer implements GLSurfaceView.Renderer {
     }
   }
 
+  private void updateTexture() {
+    TextureManager tm = TextureManager.getInstance();
+
+    int textureWidth = mTexture == null ? 2 : mTexture.getWidth();
+    int textureHeight = mTexture == null ? 2 : mTexture.getHeight();
+    Texture currentTexture = null;
+
+    if (mTexture != null) {
+      currentTexture = mTexture;
+
+      if (mModelTint != null) {
+        currentTexture.setEffect(new TintEffect(mModelTint));
+        currentTexture.applyEffect();
+      }
+    } else if (mModelTint != null) {
+      currentTexture = new Texture(1, 1, mModelTint);
+    }
+
+    if (currentTexture != null) {
+      if (tm.containsTexture("texture")) {
+        tm.replaceTexture("texture", currentTexture);
+      } else {
+        tm.addTexture("texture", currentTexture);
+      }
+    }
+
+    // setTransparency() acts as an upper bound to limit the alpha, so we set it to a very high value
+    // Since the transparency value never makes the model 100% opaque, we turn it of if the alpha is 255
+    mModel.setTransparency(mModelTint == null || mModelTint.getAlpha() >= 255 ? -1 : Integer.MAX_VALUE);
+
+    TextureInfo ti = new TextureInfo(TextureManager.getInstance().getTextureID("texture"));
+    mModel.setTexture(ti);
+  }
+
   private void renderFrame() {
     fb.clear(clearColor);
     world.renderScene(fb);
@@ -135,6 +153,10 @@ public class RNGLModelViewRenderer implements GLSurfaceView.Renderer {
 
   public void setTexture(Texture texture) {
     mTexture = texture;
+  }
+
+  public void setModelTint(RGBColor tint) {
+    mModelTint = tint;
   }
 
   public void setAnimate(boolean animate) { mAnimate = animate; }

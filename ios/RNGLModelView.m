@@ -16,8 +16,6 @@ const float TWOPIHALF = M_PI/180.0;
   [super didMoveToWindow];
 
   // Setup GLViewModel
-  self.blendColor = nil;
-  
   if (self.window) {
     // Render with our applied props!
     [self display];

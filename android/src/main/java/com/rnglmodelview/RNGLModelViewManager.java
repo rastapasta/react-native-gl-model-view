@@ -1,10 +1,10 @@
 package com.rnglmodelview;
 
+import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.module.annotations.ReactModule;
+import com.facebook.react.uimanager.annotations.ReactProp;
 import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
-import com.facebook.react.uimanager.annotations.ReactProp;
-
 import javax.annotation.Nullable;
 
 @ReactModule(name = RNGLModelViewManager.REACT_CLASS)
@@ -34,6 +34,19 @@ public class RNGLModelViewManager extends SimpleViewManager<RNGLModelView> {
   @ReactProp(name = "texture")
   public void setModelTexture(RNGLModelView view, @Nullable String textureFileName) {
     view.setModelTexture(textureFileName);
+  }
+
+  @ReactProp(name = "tint")
+  public void setModelTint(RNGLModelView view, @Nullable ReadableMap tintMap) {
+    if (tintMap == null) return;
+
+    // The tint property on the react-native side is specified in terms of float values
+    int red = tintMap.hasKey("r") ? (int)(tintMap.getDouble("r") * 255) : 1;
+    int green = tintMap.hasKey("g") ? (int)(tintMap.getDouble("g") * 255) : 1;
+    int blue = tintMap.hasKey("b") ? (int)(tintMap.getDouble("b") * 255) : 1;
+    int alpha = tintMap.hasKey("a") ? (int)(tintMap.getDouble("a") * 255) : 1;
+
+    view.setModelTint(red, green, blue, alpha);
   }
 
   @ReactProp(name = "animate")
