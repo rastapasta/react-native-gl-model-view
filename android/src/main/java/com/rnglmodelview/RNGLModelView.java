@@ -2,18 +2,16 @@ package com.rnglmodelview;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;
-
+import android.graphics.PixelFormat;
 import com.rnglmodelview.exceptions.ModelObjectNotSupportedException;
 import com.threed.jpct.Loader;
 import com.threed.jpct.Matrix;
 import com.threed.jpct.Object3D;
+import com.threed.jpct.RGBColor;
+import com.threed.jpct.SimpleVector;
 import com.threed.jpct.Texture;
-
 import java.io.IOException;
 import java.io.InputStream;
-import com.threed.jpct.SimpleVector;
-import android.graphics.PixelFormat;
-
 import javax.annotation.Nullable;
 
 public class RNGLModelView extends GLSurfaceView implements RendererDelegate {
@@ -31,11 +29,11 @@ public class RNGLModelView extends GLSurfaceView implements RendererDelegate {
   private float mModelScaleX = 1;
   private float mModelScaleY = 1;
   private float mModelScaleZ = 1;
+
   private SimpleVector mMeshTranslate = new SimpleVector();
 
   public RNGLModelView(Context context) {
     super(context);
-
     setEGLContextClientVersion(2);
     setZOrderOnTop(true);
     setEGLConfigChooser(8, 8, 8, 8, 16, 0);
@@ -73,6 +71,10 @@ public class RNGLModelView extends GLSurfaceView implements RendererDelegate {
 
   public void setModelTexture(@Nullable String textureFileName) {
     mRenderer.setTexture(loadTexture(textureFileName));
+  }
+
+  public void setModelTint(int red, int green, int blue, int alpha) {
+    mRenderer.setModelTint(new RGBColor(red, green, blue, alpha));
   }
 
   public void setAnimate(@Nullable boolean animate) {
