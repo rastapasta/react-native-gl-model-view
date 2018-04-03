@@ -16,8 +16,6 @@ const float TWOPIHALF = M_PI/180.0;
   [super didMoveToWindow];
 
   // Setup GLViewModel
-  //self.blendColor = [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:1.0];
-  
   if (self.window) {
     // Render with our applied props!
     [self display];
