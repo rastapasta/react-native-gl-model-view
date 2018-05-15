@@ -58,9 +58,9 @@ RCT_CUSTOM_VIEW_PROPERTY(tint, NSDictionary, RNGLModelView)
 
   // If the alpha is not specified, we assume that the user wants a fully opaque object
   float alpha = [tint objectForKey:@"a"] == nil ? 1.0 : [[tint valueForKey:@"a"] floatValue];
-  float red = [[tint objectForKey:@"r"] == nil ? 1.0 : [tint valueForKey:@"r"] floatValue];
-  float green = [[tint objectForKey:@"g"] == nil ? 1.0 : [tint valueForKey:@"g"] floatValue];
-  float blue = [[tint objectForKey:@"b"] == nil ? 1.0 : [tint valueForKey:@"b"] floatValue];
+  float red = [tint objectForKey:@"r"] == nil ? 1.0 : [[tint valueForKey:@"r"] floatValue];
+  float green = [tint objectForKey:@"g"] == nil ? 1.0 : [[tint valueForKey:@"g"] floatValue];
+  float blue = [tint objectForKey:@"b"] == nil ? 1.0 : [[tint valueForKey:@"b"] floatValue];
 
   view.blendColor = [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
 }
