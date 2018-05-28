@@ -54,6 +54,11 @@ public class RNGLModelViewManager extends SimpleViewManager<RNGLModelView> {
     view.setAnimate(animate);
   }
 
+  @ReactProp(name = "flipTexture")
+  public void flipTexture(RNGLModelView view, @Nullable boolean flipped) {
+    view.flipTexture(flipped);
+  }
+
   @ReactProp(name = "rotateX")
   public void setModelRotateX(RNGLModelView view, @Nullable float rotateX) {
     view.setModelRotateX(rotateX);

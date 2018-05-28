@@ -11,6 +11,7 @@ class GLModelView extends Component {
 GLModelView.propTypes = {
   ...View.propTypes,
   animate: PropTypes.bool,
+  flipTexture: PropTypes.bool,
 
   model: PropTypes.string.isRequired,
   texture: PropTypes.string,

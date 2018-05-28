@@ -46,6 +46,14 @@ public class RNGLModelView extends GLSurfaceView implements RendererDelegate {
 
   public void setModel(String modelFileName) {
     mModel = loadModel(modelFileName);
+
+    // Invert the UVs in order to make it consistent with the iOS version
+    if (mModel != null) {
+      Matrix uvMatrix = new Matrix();
+      uvMatrix.rotateX((float)Math.PI);
+      mModel.setTextureMatrix(uvMatrix);
+    }
+
     mRenderer.setModel(mModel);
   }
 
@@ -79,6 +87,10 @@ public class RNGLModelView extends GLSurfaceView implements RendererDelegate {
 
   public void setAnimate(@Nullable boolean animate) {
     mRenderer.setAnimate(animate);
+  }
+
+  public void flipTexture(@Nullable boolean flipped) {
+    mRenderer.flipTexture(flipped);
   }
 
   public void setModelRotateX(@Nullable float rotateX) {

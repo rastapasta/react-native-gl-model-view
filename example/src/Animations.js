@@ -117,6 +117,7 @@ export default class Animations extends Component {
           tint={{r: 1.0, g: 1.0, b: 1.0, a: 1.0}}
 
           animate={true}
+          flipTexture={false}
 
           scale={0.01}
           translateZ={translateZ}

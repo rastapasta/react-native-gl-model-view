@@ -10,6 +10,7 @@
 @interface RNGLModelView : GLModelView
 
 @property (nonatomic, assign) BOOL animated;
+@property (nonatomic, assign) BOOL textureFlipped;
 
 @property (nonatomic, assign) CGFloat rotateX;
 @property (nonatomic, assign) CGFloat rotateY;

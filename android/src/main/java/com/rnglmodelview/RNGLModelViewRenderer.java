@@ -9,6 +9,7 @@ import com.threed.jpct.FrameBuffer;
 import com.threed.jpct.GLSLShader;
 import com.threed.jpct.Light;
 import com.threed.jpct.Logger;
+import com.threed.jpct.Matrix;
 import com.threed.jpct.Object3D;
 import com.threed.jpct.RGBColor;
 import com.threed.jpct.SimpleVector;
@@ -44,6 +45,7 @@ public class RNGLModelViewRenderer implements GLSurfaceView.Renderer {
   private static RNGLModelViewRenderer master = null;
   private GL10 previousGL = null;
   private boolean mAnimate = false;
+  private boolean mTextureFlipped = false;
 
   public RNGLModelViewRenderer(Context context) {
     Texture.defaultToMipmapping(true);
@@ -78,6 +80,12 @@ public class RNGLModelViewRenderer implements GLSurfaceView.Renderer {
       cam.setPosition(0, 0, 1);
 
       if (mModel != null) {
+        if (mTextureFlipped) {
+          // Since the texture is initially flipped to be consistent with iOS, the "flipped" state
+          // on Android is the identity matrix
+          mModel.setTextureMatrix(new Matrix());
+        }
+
         updateTexture();
         mModel.build();
         world.addObject(mModel);
@@ -159,5 +167,11 @@ public class RNGLModelViewRenderer implements GLSurfaceView.Renderer {
     mModelTint = tint;
   }
 
-  public void setAnimate(boolean animate) { mAnimate = animate; }
+  public void setAnimate(boolean animate) {
+    mAnimate = animate;
+  }
+
+  public void flipTexture(boolean flipped) {
+    mTextureFlipped = flipped;
+  }
 }

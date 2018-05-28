@@ -12,10 +12,13 @@
 #endif
 
 #import "RNGLModelViewManager.h"
+#import <UIKit/UIKit.h>
 
 @implementation RNGLModelViewManager
 {
   RNGLModelView *glModelView;
+  BOOL textureAlreadyFlipped;
+  NSString *textureName;
 }
 
 RCT_EXPORT_MODULE()
@@ -23,6 +26,7 @@ RCT_EXPORT_MODULE()
 - (UIView *)view
 {
   glModelView = [[RNGLModelView alloc] init];
+  textureAlreadyFlipped = NO;
   return glModelView;
 }
 
@@ -49,7 +53,13 @@ RCT_CUSTOM_VIEW_PROPERTY(model, NSString, RNGLModelView)
 // Loads a texture - PVR + all formats supported by UIImage
 RCT_CUSTOM_VIEW_PROPERTY(texture, NSString, RNGLModelView)
 {
-  view.texture = [GLImage imageNamed:[RCTConvert NSString:json]];
+  textureName = [RCTConvert NSString:json];
+
+  if (view.textureFlipped) {
+    [self flipTextureForView:view];
+  } else {
+    view.texture = [GLImage imageNamed:textureName];
+  }
 }
 
 RCT_CUSTOM_VIEW_PROPERTY(tint, NSDictionary, RNGLModelView)
@@ -76,10 +86,36 @@ RCT_CUSTOM_VIEW_PROPERTY(animate, BOOL, RNGLModelView)
   }
 }
 
+// Vertically flips the texture
+RCT_CUSTOM_VIEW_PROPERTY(flipTexture, BOOL, RNGLModelView)
+{
+  view.textureFlipped = [RCTConvert BOOL:json];
+
+  if (view.texture != nil && view.textureFlipped && !textureAlreadyFlipped) {
+    [self flipTextureForView:view];
+  }
+}
+
 // Applys the current props and rerenders the scene
 RCT_EXPORT_METHOD(render)
 {
   [glModelView display];
+}
+
+- (void)flipTextureForView:(RNGLModelView *)view
+{
+  // Although the GLView documentation has a 'imageWithOrientation' function,
+  // it's not actually in the code. And since the library has been deprecated,
+  // it will never be added. Therefore, we need to flip the texture manually
+  // via UIImage and CGImage methods.
+  UIImage *uiImage = [UIImage imageNamed:textureName];
+  uiImage = [UIImage imageWithCGImage:(__nonnull CGImageRef)uiImage.CGImage
+    scale:1
+    orientation:UIImageOrientationDownMirrored];
+
+  view.texture = [GLImage imageWithUIImage:uiImage];
+
+  textureAlreadyFlipped = YES;
 }
 
 @end

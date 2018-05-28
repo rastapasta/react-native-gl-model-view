@@ -146,6 +146,7 @@ componentDidMount() {
 | texture | undefined | `string` | Filename of the texture, must be included via Xcode |
 | tint | {r: 1.0, g: 1.0, b: 1.0, a: 1.0} | `object` | Tints the texture or set the color of the model if there is no texture |
 | animate | false | `bool` | Model re-renders each 1/60s when set to `true` |
+| flipTexture | false | `bool` | The texture will be flipped vertically when set to `true` |
 | scale | 1 | `number` | Scale all axes of the model by given factor (overwrites scale*) |
 | scaleX | 1 | `number` | Scale X axis by given factor |
 | scaleY | 1 | `number` | Scale Y axis by given factor |

@@ -15,4 +15,6 @@
 
 @interface RNGLModelViewManager : RCTViewManager
 
+- (void)flipTexture:(RNGLModelView *)view;
+
 @end

@@ -199,6 +199,12 @@ public class RNGLModelViewModelLoader {
     for (int i = 0; i < numUVElements; i++) {
       modelStream.read(currentUVElement32Bit, 0, uvElementTypeSize);
       float currentUVElement = ByteBuffer.wrap(currentUVElement32Bit).order(ByteOrder.LITTLE_ENDIAN).getFloat();
+
+      if (i % 2 != 0) {
+        // Invert the V coordinate to make consistent with the other loaders
+        currentUVElement = 1.0f - currentUVElement;
+      }
+
       uvElements[i] = currentUVElement;
     }
 
