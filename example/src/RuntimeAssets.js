@@ -4,8 +4,6 @@ import ModelView from 'react-native-gl-model-view';
 import {Buffer} from 'buffer';
 import axios from 'axios';
 
-import {Alert} from 'react-native';
-
 class RuntimeAssets extends React.Component {
   constructor(nextProps) {
     super(nextProps);
@@ -17,7 +15,7 @@ class RuntimeAssets extends React.Component {
     });
     this.fetchDemonFromNetwork = this.fetchDemonFromNetwork.bind(this);
   }
-  getContentFromUrl(url) {
+  getContentFromUrl(url, decode = false) {
     return axios({
       method: 'get',
       url,
@@ -25,7 +23,7 @@ class RuntimeAssets extends React.Component {
     })
     .then((res) => new Promise((resolve, reject) => {
       const fileReader = new FileReader();
-      fileReader.onloadend = () => resolve(new Buffer(fileReader.result, 'base64'));
+      fileReader.onloadend = () => resolve(decode ? new Buffer(fileReader.result, 'base64') : fileReader.result);
       fileReader.onerror = reject;
       fileReader.readAsDataURL(res.data); 
     }));
@@ -68,7 +66,7 @@ class RuntimeAssets extends React.Component {
       <ModelView
         style={{flex: 1}}
         model="demon.model"
-        texture="demon.png"
+        texture={texture}
         scale={0.01}
         translateZ={-2.5}
         rotateX={270}
