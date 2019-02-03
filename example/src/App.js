@@ -10,6 +10,7 @@ import {
 import GestureControl from './GestureControl';
 import Animations from './Animations';
 import Multiple from './Multiple';
+import RuntimeAssets from './RuntimeAssets';
 
 export default class example extends Component {
   state = {
@@ -53,18 +54,22 @@ export default class example extends Component {
       {component: Animations, info: 'Control via Animated API'},
       {component: GestureControl, info: 'Rotation via Gesture Responder'},
       {component: Multiple, info: 'Using multiple ModelViews'},
+      {component: RuntimeAssets, info: 'Initializing ModelViews using Network Data'},
     ];
 
     return (
       <ScrollView style={styles.menu}>
-        {examples.map(example =>
-          <TouchableOpacity
-            onPress={this.select.bind(this, example.component)}
-            key={example.info}
-          >
-            <Text style={styles.button}>{example.info}</Text>
-          </TouchableOpacity>
-        )}
+        {examples.map((example, i) => {
+          const title = (i + 1) + '. ' + example.info;
+          return (
+            <TouchableOpacity
+              onPress={this.select.bind(this, example.component)}
+              key={example.info}
+            >
+              <Text style={styles.button}>{title}</Text>
+            </TouchableOpacity>
+          );
+        })}
       </ScrollView>
     );
   }
