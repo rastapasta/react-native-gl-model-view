@@ -16,5 +16,6 @@
 @interface RNGLModelViewManager : RCTViewManager
 
 - (void)flipTexture:(RNGLModelView *)view;
+- (UIImage *)decodeBase64ToImage:(NSString *)strEncodeData;
 
 @end

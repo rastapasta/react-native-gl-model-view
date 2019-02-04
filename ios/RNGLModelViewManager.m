@@ -18,7 +18,8 @@
 {
   RNGLModelView *glModelView;
   BOOL textureAlreadyFlipped;
-  NSString *textureName;
+  //NSString *textureName;
+  NSString *textureUri;
 }
 
 RCT_EXPORT_MODULE()
@@ -116,6 +117,12 @@ RCT_EXPORT_METHOD(render)
   view.texture = [GLImage imageWithUIImage:uiImage];
 
   textureAlreadyFlipped = YES;
+}
+
+// Credit to: https://stackoverflow.com/a/11251478/1701465
+- (UIImage *)decodeBase64ToImage:(NSString *)strEncodeData {
+  NSData *data = [[NSData alloc]initWithBase64EncodedString:strEncodeData options:NSDataBase64DecodingIgnoreUnknownCharacters];
+  return [UIImage imageWithData:data];
 }
 
 @end
