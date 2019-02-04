@@ -33,8 +33,7 @@ export default class Animations extends Component {
   zoom = (action) => {
     let {zoom, translateZ} = this.state;
 
-    zoom += action;
-    this.setState({zoom});
+    this.state.zoom += action;
 
     Animated.timing(
       translateZ, {
@@ -61,8 +60,7 @@ export default class Animations extends Component {
   turnAround = () => {
     let {turns, rotateZ} = this.state;
 
-    turns++;
-    this.setState({turns});
+    this.state.turns += 1;
 
     Animated.timing(
       rotateZ, {
