@@ -14,12 +14,14 @@
 #import "RNGLModelViewManager.h"
 #import <UIKit/UIKit.h>
 
+
+NSString *const HEADER_URI_BASE64_ENCODED = @"data:application/octet-stream;base64,";
+NSArray *const SUPPORTED_GEOMETRIES = @[@"obj", @"3ds", @"md2", @"asc", @"model"];
+
 @implementation RNGLModelViewManager
 {
   RNGLModelView *glModelView;
   BOOL textureAlreadyFlipped;
-  //NSString *textureName;
-  NSString *textureUri;
 }
 
 RCT_EXPORT_MODULE()
@@ -46,20 +48,45 @@ RCT_EXPORT_VIEW_PROPERTY(translateY, CGFloat);
 RCT_EXPORT_VIEW_PROPERTY(translateZ, CGFloat);
 
 // Loads a model - Wavefront (OBJ) or WWDC2010 model format
-RCT_CUSTOM_VIEW_PROPERTY(model, NSString, RNGLModelView)
+RCT_CUSTOM_VIEW_PROPERTY(model, NSDictionary, RNGLModelView)
 {
-  view.model = [GLModel modelWithContentsOfFile:[RCTConvert NSString:json]];
+  GLModel *model = nil;
+
+  NSDictionary *dictionary = [RCTConvert NSDictionary:json];
+  NSString *uri  = [dictionary objectForKey:@"uri"];
+
+  if (uri != nil) {
+    for (int i = 0; i < [SUPPORTED_GEOMETRIES count]; i++) {
+      NSString *type = (NSString*) [SUPPORTED_GEOMETRIES objectAtIndex:i];
+      NSString *geometryHeader = [self getBase64EncodedGeometryHeader: type];
+      if ([uri hasPrefix: geometryHeader]) {
+        NSString *base64 = [uri substringFromIndex: geometryHeader.length];
+        NSData *data = [NSData dataFromBase64String:base64];
+        model = [GLModel modelWithData: data];
+      }
+    }
+    if(model == nil) {
+      // XXX: iOS does not support RN's  assets:/ scheme, so we fall
+      //      directly back to "simple" file names.
+      model = [GLModel modelWithContentsOfFile:uri];
+    }
+  }
+
+  view.model = model;
 }
 
 // Loads a texture - PVR + all formats supported by UIImage
-RCT_CUSTOM_VIEW_PROPERTY(texture, NSString, RNGLModelView)
+RCT_CUSTOM_VIEW_PROPERTY(texture, NSDictionary, RNGLModelView)
 {
-  textureName = [RCTConvert NSString:json];
+  //textureName = [RCTConvert NSString:json];
+  NSDictionary *dictionary = [RCTConvert NSDictionary:json];
+  NSString *uri  = [dictionary objectForKey:@"uri"];
 
   if (view.textureFlipped) {
-    [self flipTextureForView:view];
+    [self flipTextureForView:view withUri: uri];
   } else {
-    view.texture = [GLImage imageNamed:textureName];
+    view.texture = [self resolveGLImageFromUri: uri];
+    //view.texture = [GLImage imageNamed:textureName];
   }
 }
 
@@ -93,7 +120,7 @@ RCT_CUSTOM_VIEW_PROPERTY(flipTexture, BOOL, RNGLModelView)
   view.textureFlipped = [RCTConvert BOOL:json];
 
   if (view.texture != nil && view.textureFlipped && !textureAlreadyFlipped) {
-    [self flipTextureForView:view];
+    [self flipTextureForView:view withUri: textureName];
   }
 }
 
@@ -103,13 +130,14 @@ RCT_EXPORT_METHOD(render)
   [glModelView display];
 }
 
-- (void)flipTextureForView:(RNGLModelView *)view
+- (void)flipTextureForView:(RNGLModelView *)view withUri: (NSString *)uri
 {
   // Although the GLView documentation has a 'imageWithOrientation' function,
   // it's not actually in the code. And since the library has been deprecated,
   // it will never be added. Therefore, we need to flip the texture manually
   // via UIImage and CGImage methods.
-  UIImage *uiImage = [UIImage imageNamed:textureName];
+  
+  UIImage *uiImage = [self resolveUIImageFromUri:uri];
   uiImage = [UIImage imageWithCGImage:(__nonnull CGImageRef)uiImage.CGImage
     scale:1
     orientation:UIImageOrientationDownMirrored];
@@ -123,6 +151,29 @@ RCT_EXPORT_METHOD(render)
 - (UIImage *)decodeBase64ToImage:(NSString *)strEncodeData {
   NSData *data = [[NSData alloc]initWithBase64EncodedString:strEncodeData options:NSDataBase64DecodingIgnoreUnknownCharacters];
   return [UIImage imageWithData:data];
+}
+
+- (UIImage)resolveUIImageFromUri:(NSString *)uri
+{
+  if (uri != nil) {
+    if ([uri hasPrefix: HEADER_URI_BASE64_ENCODED]) {
+      NSString *base64 = [uri substringFromIndex: HEADER_URI_BASE64_ENCODED.length];
+      return [self decodeBase64ToImage: base64];
+    }
+    return [UIImage imageNamed: textureName];
+  }
+  return nil;
+}
+
+- (GLImage)resolveGLImageFromUri:(NSString *)uri
+{
+  // TODO: Make this more efficient by copying over the resolveUIImageFromUri behaviour.
+  return [GLImage imageWithUIImage: [self resolveUIImageFromUri: uri]];
+}
+
+- (NSString *)getBase64EncodedGeometryHeader: (NSString *)type
+{
+  return [NSString stringWithFormat:@"%@%@%@", @"data:geometry/", type, @";base64"];
 }
 
 @end
