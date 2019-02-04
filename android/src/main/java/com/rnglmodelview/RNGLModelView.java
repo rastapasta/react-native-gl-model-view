@@ -19,14 +19,15 @@ import javax.annotation.Nullable;
 
 public class RNGLModelView extends GLSurfaceView implements RendererDelegate {
 
-  private static final String   HEADER_URI_BASE64_ENCODED = "data:application/octet-stream;base64,";
+  private static final String   BASE_64_QUALIFIER         = ";base64,";
+  private static final String   HEADER_URI_BASE64_ENCODED = "data:application/octet-stream" + BASE_64_QUALIFIER;
   private static final String   HEADER_URI_ASSETS         = "asset:/";
   private static final String[] SUPPORTED_GEOMETRIES      = new String[] {
     "obj", "3ds", "md2", "asc", "model",
   };
 
   private static final String getBase64EncodedGeometryHeader(final String pGeometryType) {
-    return "data:geometry/" + pGeometryType + ";base64,";
+    return "data:geometry/" + pGeometryType + BASE_64_QUALIFIER;
   }
 
   private RNGLModelViewRenderer mRenderer;
@@ -125,8 +126,14 @@ public class RNGLModelView extends GLSurfaceView implements RendererDelegate {
       } else if (pUri.startsWith(HEADER_URI_ASSETS)) {
         texture = loadTexture(pUri.substring(HEADER_URI_ASSETS.length()));
       } else {
-        // XXX: Fall back to the original scheme.
-        texture = loadTexture(pUri);
+        // XXX: Detect if we've been passed something that "looks like" an image Uri.
+        if (pUri.contains(BASE_64_QUALIFIER) && pUri.startsWith("data:image/")) {
+          final int i = pUri.indexOf(BASE_64_QUALIFIER);
+          texture = loadTexture(pUri.substring(i + BASE_64_QUALIFIER.length());
+        } else {
+          // XXX: Fall back to the original scheme.
+          texture = loadTexture(pUri);
+        }
       }
     }
     mRenderer.setTexture(texture);
