@@ -9,7 +9,7 @@ target 'example' do
   react_native_path = '../node_modules/react-native'
   third_party_path = react_native_path+'/third-party-podspecs'
 
-  pod 'Yoga', :path => "#{react_native_path}/ReactCommon/yoga"
+  pod 'yoga', :path => "#{react_native_path}/ReactCommon/yoga"
   pod 'React', :path => react_native_path, :subspecs => [
     'CxxBridge',
     'Core',
@@ -28,6 +28,8 @@ target 'example' do
   pod 'RNGLModelView', :path => '../..'
 
   pod 'Folly', :podspec => "#{third_party_path}/Folly.podspec"
-  pod 'GLog', :podspec => "#{third_party_path}/GLog.podspec"
+
+  pod 'glog', :podspec => "#{third_party_path}/glog.podspec"
+
   pod 'DoubleConversion', :podspec => "#{third_party_path}/DoubleConversion.podspec"
 end
