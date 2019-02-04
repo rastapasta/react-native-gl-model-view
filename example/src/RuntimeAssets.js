@@ -58,15 +58,27 @@ class RuntimeAssets extends React.Component {
       }));
   }
   renderModel(nextProps, nextState) {
+    // expects demon.model and demon.png (standard string)
+    // should translate to source={require()} *OR* source={{ uri: }}
+    // we will make uri, of form
+    // {uri: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAzCAYAAAA6oTAqAAAAEXRFWHRTb2Z0d2FyZQBwbmdjcnVzaEB1SfMAAABQSURBVGje7dSxCQBACARB+2/ab8BEeQNhFi6WSYzYLYudDQYGBgYGBgYGBgYGBgYGBgZmcvDqYGBgmhivGQYGBgYGBgYGBgYGBgYGBgbmQw+P/eMrC5UTVAAAAABJRU5ErkJggg=='}
     const {
       model,
       texture,
     } = nextState;
+    const textureSrc = ({
+      uri: texture,
+    }); // was demon.png
+    const modelSrc = ({
+      // XXX: Is data:geometry a valid format?
+      uri: model,
+    }); // was demon.model
+    // TODO: Need to test this scheme by specifying a conventional URI, too.
     return (
       <ModelView
         style={{flex: 1}}
         model="demon.model"
-        texture={texture}
+        texture={textureSrc}
         scale={0.01}
         translateZ={-2.5}
         rotateX={270}

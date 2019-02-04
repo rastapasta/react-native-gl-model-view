@@ -3,6 +3,7 @@ package com.rnglmodelview;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.graphics.PixelFormat;
+import android.util.Log;
 import com.rnglmodelview.exceptions.ModelObjectNotSupportedException;
 import com.threed.jpct.Loader;
 import com.threed.jpct.Matrix;
@@ -10,11 +11,15 @@ import com.threed.jpct.Object3D;
 import com.threed.jpct.RGBColor;
 import com.threed.jpct.SimpleVector;
 import com.threed.jpct.Texture;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Base64;
 import javax.annotation.Nullable;
 
 public class RNGLModelView extends GLSurfaceView implements RendererDelegate {
+
+  private static final String HEADER_URI_BASE64_ENCODED = "data:application/octet-stream;base64,";
 
   private RNGLModelViewRenderer mRenderer;
 
@@ -77,8 +82,18 @@ public class RNGLModelView extends GLSurfaceView implements RendererDelegate {
     updateModelTransform();
   }
 
-  public void setModelTexture(@Nullable String textureFileName) {
-    mRenderer.setTexture(loadTexture(textureFileName));
+  private static final InputStream getInputStreamFromBase64(final String pBase64) {
+    return new ByteArrayInputStream(Base64.getDecoder().decode(pBase64));
+  }
+  
+  public void setModelTextureUri(@Nullable String pUri) {
+    Texture texture = null;
+    if (pUri != null) {
+      if (pUri.startsWith(HEADER_URI_BASE64_ENCODED)) {
+        texture = new Texture(getInputStreamFromBase64(pUri.substring(HEADER_URI_BASE64_ENCODED.length())));
+      }
+    }
+    mRenderer.setTexture(texture);
   }
 
   public void setModelTint(int red, int green, int blue, int alpha) {
@@ -191,7 +206,7 @@ public class RNGLModelView extends GLSurfaceView implements RendererDelegate {
 
     return texture;
   }
-
+  
   private void updateModelTransform() {
     if (mModel == null) return;
 
