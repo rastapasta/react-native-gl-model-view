@@ -57,7 +57,9 @@ export default class GestureControl extends Component {
     return (
       <AnimatedModelView
         model="demon.model"
-        texture="demon.png"
+        texture={{
+          uri: 'demon.png',
+        }}
 
         onStartShouldSetResponder={() => true}
         onResponderRelease={this.onMoveEnd}

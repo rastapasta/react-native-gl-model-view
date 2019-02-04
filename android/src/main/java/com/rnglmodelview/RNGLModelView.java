@@ -20,6 +20,7 @@ import javax.annotation.Nullable;
 public class RNGLModelView extends GLSurfaceView implements RendererDelegate {
 
   private static final String HEADER_URI_BASE64_ENCODED = "data:application/octet-stream;base64,";
+  private static final String HEADER_URI_ASSETS = "asset:/";
 
   private RNGLModelViewRenderer mRenderer;
 
@@ -91,6 +92,11 @@ public class RNGLModelView extends GLSurfaceView implements RendererDelegate {
     if (pUri != null) {
       if (pUri.startsWith(HEADER_URI_BASE64_ENCODED)) {
         texture = new Texture(getInputStreamFromBase64(pUri.substring(HEADER_URI_BASE64_ENCODED.length())));
+      } else if (pUri.startsWith(HEADER_URI_ASSETS)) {
+        texture = loadTexture(pUri.substring(HEADER_URI_ASSETS.length()));
+      } else {
+        // XXX: Fall back to the original scheme.
+        texture = loadTexture(pUri);
       }
     }
     mRenderer.setTexture(texture);

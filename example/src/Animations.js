@@ -113,7 +113,9 @@ export default class Animations extends Component {
       <View style={styles.container}>
         <AnimatedModelView
           model="demon.model"
-          texture="demon.png"
+          texture={{
+            uri: 'demon.png',
+          }}
           tint={{r: 1.0, g: 1.0, b: 1.0, a: 1.0}}
 
           animate={true}

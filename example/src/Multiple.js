@@ -38,7 +38,9 @@ export default class Multiple extends Component {
     return (
       <AnimatedModelView
         model="demon.model"
-        texture="demon.png"
+        texture={{
+          uri: 'demon.png',
+        }}
 
         animate={true}
 
