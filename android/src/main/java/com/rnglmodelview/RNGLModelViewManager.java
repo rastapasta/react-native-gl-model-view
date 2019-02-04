@@ -38,7 +38,6 @@ public class RNGLModelViewManager extends SimpleViewManager<RNGLModelView> {
   @ReactProp(name = "texture")
   public void setModelTexture(RNGLModelView view, @Nullable ReadableMap pTextureSource) {
     if (pTextureSource == null) return;
-    //'data:image/png;base64,' + texture
     view.setModelTextureUri(pTextureSource.getString("uri"));
   }
 

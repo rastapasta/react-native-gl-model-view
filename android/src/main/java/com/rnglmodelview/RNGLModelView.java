@@ -129,7 +129,7 @@ public class RNGLModelView extends GLSurfaceView implements RendererDelegate {
         // XXX: Detect if we've been passed something that "looks like" an image Uri.
         if (pUri.contains(BASE_64_QUALIFIER) && pUri.startsWith("data:image/")) {
           final int i = pUri.indexOf(BASE_64_QUALIFIER);
-          texture = loadTexture(pUri.substring(i + BASE_64_QUALIFIER.length());
+          texture = loadTexture(pUri.substring(i + BASE_64_QUALIFIER.length()));
         } else {
           // XXX: Fall back to the original scheme.
           texture = loadTexture(pUri);
