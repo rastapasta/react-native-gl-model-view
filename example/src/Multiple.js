@@ -14,10 +14,10 @@ export default class Multiple extends Component {
     this.state = {
       rotateZ: new Animated.Value(0),
     };
-    Object.keys(this.state).forEach(key =>
-      this.state[key] instanceof Animated.Value &&
-      this.state[key].__makeNative()
-    );
+//    Object.keys(this.state).forEach(key =>
+//      this.state[key] instanceof Animated.Value &&
+//      this.state[key].__makeNative()
+//    );
   }
 
   componentDidMount() {
