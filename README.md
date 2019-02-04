@@ -81,8 +81,12 @@ To load a model on Android, you need to place the model in the **android/app/src
 import ModelView from 'react-native-gl-model-view';
 
 <ModelView
-    model="model.obj"
-    texture="texture.png"
+    model={{
+      uri: 'model.obj',
+    }}
+    texture={{
+      uri: 'texture.png',
+    }}
 
     scale={0.01}
 
@@ -142,8 +146,8 @@ componentDidMount() {
 
 | Prop  | Default  | Type | Description |
 | :------------ |:---------------:| :---------------:| :-----|
-| model | *required* | `string` | Filename of the model, must be included via Xcode |
-| texture | undefined | `string` | Filename of the texture, must be included via Xcode |
+| model | undefined | `object` | `uri` filename of the model, must be included via Xcode |
+| texture | undefined | `object` | `uri` filename of the texture, must be included via Xcode |
 | tint | {r: 1.0, g: 1.0, b: 1.0, a: 1.0} | `object` | Tints the texture or set the color of the model if there is no texture |
 | animate | false | `bool` | Model re-renders each 1/60s when set to `true` |
 | flipTexture | false | `bool` | The texture will be flipped vertically when set to `true` |
@@ -165,6 +169,7 @@ Check out the [example project](https://github.com/rastapasta/react-native-gl-mo
 * [Usage of the Animated API](https://github.com/rastapasta/react-native-gl-model-view/blob/master/example/src/Animations.js)
 * [Using the GestureResponder to control rotation](https://github.com/rastapasta/react-native-gl-model-view/blob/master/example/src/GestureControl.js)
 * [Animating multiple ModelViews at once](https://github.com/rastapasta/react-native-gl-model-view/blob/master/example/src/Multiple.js)
+* [Using an online model and texture](https://github.com/rastapasta/react-native-gl-model-view/blob/master/example/src/RuntimeAssets.js)
 
 To install the dependencies, switch into the `example` folder and set it up as following:
 
