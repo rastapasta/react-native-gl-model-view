@@ -19,8 +19,15 @@ import javax.annotation.Nullable;
 
 public class RNGLModelView extends GLSurfaceView implements RendererDelegate {
 
-  private static final String HEADER_URI_BASE64_ENCODED = "data:application/octet-stream;base64,";
-  private static final String HEADER_URI_ASSETS = "asset:/";
+  private static final String   HEADER_URI_BASE64_ENCODED = "data:application/octet-stream;base64,";
+  private static final String   HEADER_URI_ASSETS         = "asset:/";
+  private static final String[] SUPPORTED_GEOMETRIES      = new String[] {
+    "obj", "3ds", "md2", "asc", "model",
+  };
+
+  private static final String getBase64EncodedGeometryHeader(final String pGeometryType) {
+    return "data:geometry/" + pGeometryType + ";base64,";
+  }
 
   private RNGLModelViewRenderer mRenderer;
 
@@ -50,16 +57,39 @@ public class RNGLModelView extends GLSurfaceView implements RendererDelegate {
     mRenderer.delegate = this;
   }
 
-  public void setModel(String modelFileName) {
-    mModel = loadModel(modelFileName);
+  public void setModelUri(@Nullable final String pUri) {
+    Object3D model = null;
+    
+    try {
+      for (final String lGeometryType: SUPPORTED_GEOMETRIES) {
+        final String lGeometryHeader = RNGLModelView.getBase64EncodedGeometryHeader(lGeometryType);
+        // XXX: Here, we've found a matching header.
+        if (pUri.startsWith(lGeometryHeader)) {
+          final String lBase64 = pUri.substring(lGeometryHeader.length());
+          final InputStream lInputStream = getInputStreamFromBase64(lBase64);
+          model = RNGLModelView.loadModelFromInputStream(lInputStream, lGeometryType);
+        }
+      }
+      
+      if (model == null) {
+        if (pUri.startsWith(HEADER_URI_ASSETS)) {
+          model = RNGLModelView.loadModel(getContext(), pUri.substring(HEADER_URI_ASSETS.length()));
+        } else {
+          // XXX: Fall back to the original scheme.
+          model = RNGLModelView.loadModel(getContext(), pUri);
+        }   
+      }
+    } catch(final IOException | ModelObjectNotSupportedException e) {
+      e.printStackTrace();
+    }
 
+    mModel = model;
     // Invert the UVs in order to make it consistent with the iOS version
-    if (mModel != null) {
+    if (model != null) {
       Matrix uvMatrix = new Matrix();
       uvMatrix.rotateX((float)Math.PI);
       mModel.setTextureMatrix(uvMatrix);
     }
-
     mRenderer.setModel(mModel);
   }
 
@@ -166,37 +196,33 @@ public class RNGLModelView extends GLSurfaceView implements RendererDelegate {
     updateModelTransform();
   }
 
-  private Object3D loadModel(String modelFileName) {
-    String modelFileNameArray[] = modelFileName.split("\\.");
-    String extension = modelFileNameArray[modelFileNameArray.length - 1].toLowerCase();
-
-    Object3D model = null;
-
-    try {
-      InputStream modelStream = getContext().getAssets().open(modelFileName);
-
-      switch (extension) {
-        case "obj":
-          model = Object3D.mergeAll(Loader.loadOBJ(modelStream, null, 1));
-          break;
-        case "3ds":
-          model = Object3D.mergeAll(Loader.load3DS(modelStream, 1));
-          break;
-        case "md2":
-          model = Loader.loadMD2(modelStream, 1);
-          break;
-        case "asc":
-          model = Loader.loadASC(modelStream, 1, false);
-          break;
-        case "model":
-          model = RNGLModelViewModelLoader.loadMODEL(modelStream);
-          break;
-      }
-    } catch (IOException | ModelObjectNotSupportedException e) {
-      e.printStackTrace();
+  private static final Object3D loadModelFromInputStream(final InputStream pInputStream, final String pExtension) throws IOException, ModelObjectNotSupportedException {
+    switch (pExtension) {
+      case "obj":
+        return Object3D.mergeAll(Loader.loadOBJ(pInputStream, null, 1));
+      case "3ds":
+        return Object3D.mergeAll(Loader.load3DS(pInputStream, 1));
+      case "md2":
+        return Loader.loadMD2(pInputStream, 1);
+      case "asc":
+        return Loader.loadASC(pInputStream, 1, false);
+      case "model":
+        return RNGLModelViewModelLoader.loadMODEL(pInputStream);
     }
+    return null;
+  }
 
-    return model;
+  private static Object3D loadModel(final Context pContext, @Nullable String modelFileName) throws IOException, ModelObjectNotSupportedException {
+
+    if (modelFileName != null) {
+
+      String modelFileNameArray[] = modelFileName.split("\\.");
+      String extension = modelFileNameArray[modelFileNameArray.length - 1].toLowerCase();
+      final InputStream modelStream = pContext.getAssets().open(modelFileName);
+      return RNGLModelView.loadModelFromInputStream(modelStream, extension);
+    }
+  
+    return null;
   }
 
   private Texture loadTexture(String textureFileName) {

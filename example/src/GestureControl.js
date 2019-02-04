@@ -56,7 +56,9 @@ export default class GestureControl extends Component {
 
     return (
       <AnimatedModelView
-        model="demon.model"
+        model={{
+          uri: 'demon.model',
+        }}
         texture={{
           uri: 'demon.png',
         }}

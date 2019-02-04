@@ -27,9 +27,11 @@ public class RNGLModelViewManager extends SimpleViewManager<RNGLModelView> {
     return mModelView;
   }
 
+  /** TODO: This is a breaking change! Expected a String previously. */
   @ReactProp(name = "model")
-  public void setModel(RNGLModelView view, String modelFileName) {
-    view.setModel(modelFileName);
+  public void setModel(RNGLModelView view, @Nullable ReadableMap pModelSource) {
+    if (pModelSource == null) return;
+    view.setModelUri(pModelSource.getString("uri"));
   }
 
   /** TODO: This is a breaking change! Expected a String previously. */

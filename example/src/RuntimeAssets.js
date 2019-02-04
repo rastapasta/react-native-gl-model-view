@@ -4,6 +4,9 @@ import ModelView from 'react-native-gl-model-view';
 import {Buffer} from 'buffer';
 import axios from 'axios';
 
+// XXX: This is the standard content header returned for a blob.
+const octetStreamHeader = 'data:application/octet-stream;base64,';
+
 class RuntimeAssets extends React.Component {
   constructor(nextProps) {
     super(nextProps);
@@ -28,18 +31,21 @@ class RuntimeAssets extends React.Component {
       fileReader.readAsDataURL(res.data); 
     }));
   }
+  // XXX: The underlying application needs to know the file type of the model.
+  //      Therefore, we must change the header returned by axios to something
+  //      more indicative of the type.
+  formatContent(uri, header) {
+    return `${header}${uri.substring(octetStreamHeader.length)}`;
+  }
   fetchDemonFromNetwork() {
     this.setState({
       loading: true,
       error: null,
     });
     return Promise.all([
-      this.getContentFromUrl(
-        'https://github.com/rastapasta/react-native-gl-model-view/raw/master/example/data/demon.model',
-      ),
-      this.getContentFromUrl(
-        'https://github.com/rastapasta/react-native-gl-model-view/raw/master/example/data/demon.png',
-      ),
+      this.getContentFromUrl('https://github.com/rastapasta/react-native-gl-model-view/raw/master/example/data/demon.model')
+        .then(content => this.formatContent(content, 'data:geometry/model;base64,')),
+      this.getContentFromUrl('https://github.com/rastapasta/react-native-gl-model-view/raw/master/example/data/demon.png'),
     ])
       .then((binaries) => {
         const model = binaries[0];
@@ -51,17 +57,12 @@ class RuntimeAssets extends React.Component {
           error: null,
         });
       })
-      //.then(() => new Promise((resolve, reject) => setTimeout(() => reject(), 5000)))
       .catch(e => this.setState({
         loading: false,
         error: e || new Error('Something unexpected has happened.'),
       }));
   }
   renderModel(nextProps, nextState) {
-    // expects demon.model and demon.png (standard string)
-    // should translate to source={require()} *OR* source={{ uri: }}
-    // we will make uri, of form
-    // {uri: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAzCAYAAAA6oTAqAAAAEXRFWHRTb2Z0d2FyZQBwbmdjcnVzaEB1SfMAAABQSURBVGje7dSxCQBACARB+2/ab8BEeQNhFi6WSYzYLYudDQYGBgYGBgYGBgYGBgYGBgZmcvDqYGBgmhivGQYGBgYGBgYGBgYGBgYGBgbmQw+P/eMrC5UTVAAAAABJRU5ErkJggg=='}
     const {
       model,
       texture,
@@ -70,14 +71,12 @@ class RuntimeAssets extends React.Component {
       uri: texture,
     }); // was demon.png
     const modelSrc = ({
-      // XXX: Is data:geometry a valid format?
       uri: model,
     }); // was demon.model
-    // TODO: Need to test this scheme by specifying a conventional URI, too.
     return (
       <ModelView
         style={{flex: 1}}
-        model="demon.model"
+        model={modelSrc}
         texture={textureSrc}
         scale={0.01}
         translateZ={-2.5}
