@@ -12,7 +12,6 @@ export default class GestureControl extends Component {
   constructor() {
     super();
     this.state = {
-      animate: false,
 
       rotateX: new Animated.Value(0),
       rotateZ: new Animated.Value(0),
@@ -29,7 +28,6 @@ export default class GestureControl extends Component {
   onMoveEnd = () => {
     this.setState({
       fromXY: undefined,
-      animate: false
     });
   }
 
@@ -38,7 +36,6 @@ export default class GestureControl extends Component {
       { rotateX, rotateZ, fromXY, valueXY } = this.state;
     if (!this.state.fromXY) {
       this.setState({
-        animate: true,
         fromXY: [pageX, pageY],
         valueXY: [
           rotateZ.__getValue(),
@@ -52,7 +49,7 @@ export default class GestureControl extends Component {
   }
 
   render() {
-    let { animate, rotateZ, rotateX } = this.state;
+    let { rotateZ, rotateX } = this.state;
 
     return (
       <AnimatedModelView
@@ -67,7 +64,7 @@ export default class GestureControl extends Component {
         onResponderRelease={this.onMoveEnd}
         onResponderMove={this.onMove}
 
-        animate={animate}
+        animate
 
         scale={0.01}
         translateZ={-2}

@@ -44,7 +44,7 @@ export default class Multiple extends Component {
           uri: 'demon.png',
         }}
 
-        animate={true}
+        animate
 
         scale={0.01}
         translateZ={-2.5}

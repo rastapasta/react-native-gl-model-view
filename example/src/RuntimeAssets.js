@@ -69,10 +69,10 @@ class RuntimeAssets extends React.Component {
     } = nextState;
     const textureSrc = ({
       uri: texture,
-    }); // was demon.png
+    });
     const modelSrc = ({
       uri: model,
-    }); // was demon.model
+    });
     return (
       <ModelView
         style={{flex: 1}}
@@ -83,6 +83,7 @@ class RuntimeAssets extends React.Component {
         rotateX={270}
         rotateY={0}
         rotateZ={0}
+        animate
       />
     );
   }
