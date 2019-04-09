@@ -13,6 +13,9 @@
 
 #import "RNGLModelView.h"
 
+FOUNDATION_EXPORT NSString *const HEADER_URI_BASE64_ENCODED;
+FOUNDATION_EXPORT NSArray *const SUPPORTED_GEOMETRIES;
+
 @interface RNGLModelViewManager : RCTViewManager
 
 - (void)flipTexture:(RNGLModelView *)view;

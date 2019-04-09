@@ -13,8 +13,8 @@ GLModelView.propTypes = {
   animate: PropTypes.bool,
   flipTexture: PropTypes.bool,
 
-  model: PropTypes.string.isRequired,
-  texture: PropTypes.string,
+  model: PropTypes.object,
+  texture: PropTypes.object,
   tint: PropTypes.object,
 
   rotateX: PropTypes.number,

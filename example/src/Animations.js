@@ -33,8 +33,7 @@ export default class Animations extends Component {
   zoom = (action) => {
     let {zoom, translateZ} = this.state;
 
-    zoom += action;
-    this.setState({zoom});
+    this.state.zoom += action;
 
     Animated.timing(
       translateZ, {
@@ -61,8 +60,7 @@ export default class Animations extends Component {
   turnAround = () => {
     let {turns, rotateZ} = this.state;
 
-    turns++;
-    this.setState({turns});
+    this.state.turns += 1;
 
     Animated.timing(
       rotateZ, {
@@ -112,11 +110,15 @@ export default class Animations extends Component {
     return (
       <View style={styles.container}>
         <AnimatedModelView
-          model="demon.model"
-          texture="demon.png"
+          model={{
+            uri: 'demon.model',
+          }}
+          texture={{
+            uri: 'demon.png',
+          }}
           tint={{r: 1.0, g: 1.0, b: 1.0, a: 1.0}}
 
-          animate={true}
+          animate
           flipTexture={false}
 
           scale={0.01}

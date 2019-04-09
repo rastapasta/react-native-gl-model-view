@@ -1,6 +1,7 @@
 package com.rnglmodelview;
 
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.ReadableNativeMap;
 import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.facebook.react.uimanager.SimpleViewManager;
@@ -26,14 +27,18 @@ public class RNGLModelViewManager extends SimpleViewManager<RNGLModelView> {
     return mModelView;
   }
 
+  /** TODO: This is a breaking change! Expected a String previously. */
   @ReactProp(name = "model")
-  public void setModel(RNGLModelView view, String modelFileName) {
-    view.setModel(modelFileName);
+  public void setModel(RNGLModelView view, @Nullable ReadableMap pModelSource) {
+    if (pModelSource == null) return;
+    view.setModelUri(pModelSource.getString("uri"));
   }
 
+  /** TODO: This is a breaking change! Expected a String previously. */
   @ReactProp(name = "texture")
-  public void setModelTexture(RNGLModelView view, @Nullable String textureFileName) {
-    view.setModelTexture(textureFileName);
+  public void setModelTexture(RNGLModelView view, @Nullable ReadableMap pTextureSource) {
+    if (pTextureSource == null) return;
+    view.setModelTextureUri(pTextureSource.getString("uri"));
   }
 
   @ReactProp(name = "tint")

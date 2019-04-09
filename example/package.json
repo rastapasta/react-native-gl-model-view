@@ -6,7 +6,8 @@
     "start": "react-native start",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "test": "node node_modules/jest/bin/jest.js --watch"
+    "test": "node node_modules/jest/bin/jest.js --watch",
+    "postinstall": "install-local"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,15 @@
     "react-native-gl-model-view": "../"
   },
   "dependencies": {
-    "react": "^16.0.0-alpha.12",
-    "react-native": "^0.47.2"
+    "axios": "^0.18.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.5",
+    "babel-preset-react-native": "^4.0.0",
+    "buffer": "^5.2.1",
+    "react": "^16.3.1",
+    "react-native": "^0.55.4"
+  },
+  "devDependencies": {
+    "install-local": "^0.6.2"
   }
 }

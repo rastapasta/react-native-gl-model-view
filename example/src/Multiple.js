@@ -14,10 +14,6 @@ export default class Multiple extends Component {
     this.state = {
       rotateZ: new Animated.Value(0),
     };
-    Object.keys(this.state).forEach(key =>
-      this.state[key] instanceof Animated.Value &&
-      this.state[key].__makeNative()
-    );
   }
 
   componentDidMount() {
@@ -37,10 +33,14 @@ export default class Multiple extends Component {
   renderModel() {
     return (
       <AnimatedModelView
-        model="demon.model"
-        texture="demon.png"
+        model={{
+          uri: 'demon.model',
+        }}
+        texture={{
+          uri: 'demon.png',
+        }}
 
-        animate={true}
+        animate
 
         scale={0.01}
         translateZ={-2.5}
