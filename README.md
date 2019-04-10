@@ -146,8 +146,8 @@ componentDidMount() {
 
 | Prop  | Default  | Type | Description |
 | :------------ |:---------------:| :---------------:| :-----|
-| model | undefined | `object` | `uri` filename of the model, must be included via Xcode |
-| texture | undefined | `object` | `uri` filename of the texture, must be included via Xcode |
+| model | undefined | `object` | filename or URL of the model as `uri` |
+| texture | undefined | `object` | filename or URL of the texture as `uri` |
 | tint | {r: 1.0, g: 1.0, b: 1.0, a: 1.0} | `object` | Tints the texture or set the color of the model if there is no texture |
 | animate | false | `bool` | Model re-renders each 1/60s when set to `true` |
 | flipTexture | false | `bool` | The texture will be flipped vertically when set to `true` |
@@ -212,6 +212,7 @@ $ react-native run-android
 ## Special thanks
 
 * [PatriceVignola](https://github.com/PatriceVignola) for the Android part of this library!
+* [Cawfree](https://github.com/Cawfree) for adapting the library for remote model downloadability
 * [nicklockwood](https://github.com/nicklockwood) for his work on [GLView](https://github.com/nicklockwood/GLView/)
 * [frostney](https://github.com/frostney) for his work on [react-native-create-library](https://github.com/frostney/react-native-create-library) used to bootstrap this project
 
