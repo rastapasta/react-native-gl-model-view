@@ -109,9 +109,7 @@ public class RNGLModelViewRenderer implements GLSurfaceView.Renderer {
 
   @Override
   public void onDrawFrame(GL10 gl) {
-    if (mAnimate) {
       renderFrame();
-    }
   }
 
   private void updateTexture() {
