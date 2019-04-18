@@ -237,7 +237,7 @@ public class RNGLModelView extends GLSurfaceView implements RendererDelegate {
 
     try {
       InputStream textureStream = getContext().getAssets().open(textureFileName);
-      texture = new Texture(textureStream);
+      texture = new Texture(textureStream, true);
 
     } catch (IOException e) {
       e.printStackTrace();
