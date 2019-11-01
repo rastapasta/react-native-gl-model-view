@@ -16,24 +16,25 @@ Main features:
 * Supports [Wavefront .OBJ](https://en.wikipedia.org/wiki/Wavefront_.obj_file), [Autodesk 3DS](https://en.wikipedia.org/wiki/.3ds), [Quake 2 MD2](https://en.wikipedia.org/wiki/MD2_(file_format)), [ASC](https://codeyarns.com/2011/08/17/asc-file-format-for-3d-points/) and GLEssentials model formats (Android)
 * Supports all texture image formats supported by [UIImage](https://developer.apple.com/library/content/documentation/2DDrawing/Conceptual/DrawingPrintingiOS/LoadingImages/LoadingImages.html#//apple_ref/doc/uid/TP40010156-CH17-SW8)
 
-## Requirements
-
-* Cocoapods (for iOS) - to install the [GLView](https://github.com/nicklockwood/GLView) dependency.
-
 ## Getting started
 
-You can install and try linking the project automatically:
+Since React Native 0.60 and higher, autolinking makes the installation process much simpler.
 
 ```sh
-$ npm install --save react-native-gl-model-view
-$ react-native link
+$ yarn add react-native-gl-model-view
+
+# Update your pods (iOS)
+$ cd ios
+$ pod install
 ```
 
-or do it manually as described below:
+### Using React Native Link (React Native 0.59 and lower)
+
+Run ```react-native link react-native-gl-model-view``` after which you should be able to use this library on iOS and Android.
 
 ### iOS Manual installation
 
-`$ npm install --save react-native-gl-model-view`
+`$ yarn add react-native-gl-model-view`
 
 Afterwards add following lines to your Podfile:
 
@@ -44,7 +45,7 @@ pod 'RNGLModelView', :path => '../node_modules/react-native-gl-model-view'
 
 ### Android Manual installation
 
-`$ npm install --save react-native-gl-model-view`
+`$ yarn add react-native-gl-model-view`
 
 Afterwards, add the following lines to the **android/settings.gradle** file:
 
@@ -173,19 +174,8 @@ Check out the [example project](https://github.com/rastapasta/react-native-gl-mo
 
 To install the dependencies, switch into the `example` folder and set it up as following:
 
-#### For npm < 5
-
 ```sh
-$ npm install
-```
-
-#### For npm >= 5
-
-npm 5 changed the way `npm install` installs and links local modules. Previously, if a dependency in package.json was using the `file: <relative/path/to/file` protocol, npm install would copy the folder inside node_modules as if it were downloading a module from the npm registry. But since npm 5, `npm install` only creates a symlink to the module. Since the react-native packager doesn't work well with symlinks, it cannot find the react module when running the app. A workaround is to install "instal-local", which is a tool made specifically to fix this npm 5 problem:
-
-```sh
-$ npm install -g install-local
-$ install-local
+$ yarn
 ```
 
 To build and run the app, set it up as following:
@@ -205,10 +195,6 @@ $ react-native run-ios
 $ react-native run-android
 ```
 
-## Backlog
-
-* Bridge to [GLModel.modelWithData](https://github.com/nicklockwood/GLView/blob/master/GLView/Models/GLModel.m#L424) to allow flexbile model sources
-
 ## Special thanks
 
 * [PatriceVignola](https://github.com/PatriceVignola) for the Android part of this library!
@@ -220,7 +206,8 @@ $ react-native run-android
 
 #### The MIT License (MIT)
 
-Copyright (c) 2017 Michael Straßburger
+Copyright (c) 2019 Michael Straßburger
+Copyright (c) 2019 The react-native-gl-model-view authors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
