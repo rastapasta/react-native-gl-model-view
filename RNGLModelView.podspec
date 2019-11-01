@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "RNGLModelView"
-  s.version      = "1.0.1"
+  s.version      = "1.5.0"
   s.summary      = "React Native native bridge to GLView - display and animate Wavefront .OBJ 3D models"
   s.description  = <<-DESC
                   react-native-gl-model-view
