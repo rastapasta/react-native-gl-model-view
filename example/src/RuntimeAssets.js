@@ -1,5 +1,11 @@
 import React from 'react';
-import {ActivityIndicator, View, StyleSheet, TouchableOpacity, Text} from 'react-native';
+import {
+  ActivityIndicator,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+} from 'react-native';
 import ModelView from 'react-native-gl-model-view';
 import {Buffer} from 'buffer';
 import axios from 'axios';
@@ -8,46 +14,57 @@ import axios from 'axios';
 const octetStreamHeader = 'data:application/octet-stream;base64,';
 
 class RuntimeAssets extends React.Component {
-  constructor(nextProps) {
-    super(nextProps);
-    this.state = ({
-      model: null,
-      texture: null,
-      error: null,
-      loading: false,
-    });
-    this.fetchDemonFromNetwork = this.fetchDemonFromNetwork.bind(this);
-  }
+  state = {
+    model: null,
+    texture: null,
+    error: null,
+    loading: false,
+  };
+
   getContentFromUrl(url, decode = false) {
     return axios({
       method: 'get',
       url,
       responseType: 'blob',
-    })
-    .then((res) => new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.onloadend = () => resolve(decode ? new Buffer(fileReader.result, 'base64') : fileReader.result);
-      fileReader.onerror = reject;
-      fileReader.readAsDataURL(res.data); 
-    }));
+    }).then(
+      res =>
+        new Promise((resolve, reject) => {
+          const fileReader = new FileReader();
+          fileReader.onloadend = () =>
+            resolve(
+              decode
+                ? new Buffer(fileReader.result, 'base64')
+                : fileReader.result,
+            );
+          fileReader.onerror = reject;
+          fileReader.readAsDataURL(res.data);
+        }),
+    );
   }
+
   // XXX: The underlying application needs to know the file type of the model.
   //      Therefore, we must change the header returned by axios to something
   //      more indicative of the type.
   formatContent(uri, header) {
     return `${header}${uri.substring(octetStreamHeader.length)}`;
   }
-  fetchDemonFromNetwork() {
+
+  fetchDemonFromNetwork = () => {
     this.setState({
       loading: true,
       error: null,
     });
     return Promise.all([
-      this.getContentFromUrl('https://github.com/rastapasta/react-native-gl-model-view/raw/master/example/data/demon.model')
-        .then(content => this.formatContent(content, 'data:geometry/model;base64,')),
-      this.getContentFromUrl('https://github.com/rastapasta/react-native-gl-model-view/raw/master/example/data/demon.png'),
+      this.getContentFromUrl(
+        'https://github.com/rastapasta/react-native-gl-model-view/raw/master/example/data/demon.model',
+      ).then(content =>
+        this.formatContent(content, 'data:geometry/model;base64,'),
+      ),
+      this.getContentFromUrl(
+        'https://github.com/rastapasta/react-native-gl-model-view/raw/master/example/data/demon.png',
+      ),
     ])
-      .then((binaries) => {
+      .then(binaries => {
         const model = binaries[0];
         const texture = binaries[1];
         this.setState({
@@ -57,22 +74,22 @@ class RuntimeAssets extends React.Component {
           error: null,
         });
       })
-      .catch(e => this.setState({
-        loading: false,
-        error: e || new Error('Something unexpected has happened.'),
-      }));
-  }
+      .catch(e =>
+        this.setState({
+          loading: false,
+          error: e || new Error('Something unexpected has happened.'),
+        }),
+      );
+  };
+
   renderModel(nextProps, nextState) {
-    const {
-      model,
-      texture,
-    } = nextState;
-    const textureSrc = ({
+    const {model, texture} = nextState;
+    const textureSrc = {
       uri: texture,
-    });
-    const modelSrc = ({
+    };
+    const modelSrc = {
       uri: model,
-    });
+    };
     return (
       <ModelView
         style={{flex: 1}}
@@ -88,27 +105,16 @@ class RuntimeAssets extends React.Component {
     );
   }
   renderControls(nextProps, nextState) {
-    const {
-      error,
-      loading,
-    } = nextState;
+    const {error, loading} = nextState;
     return (
-      <View
-        style={styles.controls}
-      >
-        {(!!loading) && (
-          <ActivityIndicator
-          />
-        )}
-        {(!loading) && (
+      <View style={styles.controls}>
+        {!!loading && <ActivityIndicator />}
+        {!loading && (
           <TouchableOpacity
             style={styles.controlBox}
             disabled={loading}
-            onPress={this.fetchDemonFromNetwork}
-          >
-            <Text
-              style={error? styles.controlTextError : styles.controlText}
-            >
+            onPress={this.fetchDemonFromNetwork}>
+            <Text style={error ? styles.controlTextError : styles.controlText}>
               {error ? 'Retry' : 'Load'}
             </Text>
           </TouchableOpacity>
@@ -117,15 +123,12 @@ class RuntimeAssets extends React.Component {
     );
   }
   render() {
-    const {
-      model,
-      texture,
-    } = this.state;
+    const {model, texture} = this.state;
     return (
-      <View
-        style={styles.container}
-      >
-      {(model && texture) ? this.renderModel(this.props, this.state) : this.renderControls(this.props, this.state)}
+      <View style={styles.container}>
+        {model && texture
+          ? this.renderModel(this.props, this.state)
+          : this.renderControls(this.props, this.state)}
       </View>
     );
   }

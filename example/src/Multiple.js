@@ -1,9 +1,5 @@
-import React, { Component } from 'react';
-import {
-  StyleSheet,
-  View,
-  Animated
-} from 'react-native';
+import React, {Component} from 'react';
+import {StyleSheet, View, Animated} from 'react-native';
 
 import ModelView from 'react-native-gl-model-view';
 const AnimatedModelView = Animated.createAnimatedComponent(ModelView);
@@ -21,13 +17,11 @@ export default class Multiple extends Component {
   }
 
   animate(iteration) {
-    Animated
-    .timing(this.state.rotateZ, {
-      toValue: ++iteration*360,
+    Animated.timing(this.state.rotateZ, {
+      toValue: ++iteration * 360,
       useNativeDriver: true,
-      duration: 5000
-    })
-    .start(this.animate.bind(this, iteration++));
+      duration: 5000,
+    }).start(this.animate.bind(this, iteration++));
   }
 
   renderModel() {
@@ -39,18 +33,15 @@ export default class Multiple extends Component {
         texture={{
           uri: 'demon.png',
         }}
-
+        tint={{r: 1.0, g: 1.0, b: 1.0, a: 1.0}}
         animate
-
         scale={0.01}
         translateZ={-2.5}
         rotateX={270}
-
-        rotateZ={Animated.add(this.state.rotateZ, Math.random()*360)}
-
+        rotateZ={Animated.add(this.state.rotateZ, Math.random() * 360)}
         style={styles.model}
       />
-    )
+    );
   }
 
   render() {
@@ -83,6 +74,6 @@ const styles = StyleSheet.create({
   },
   model: {
     flex: 1,
-    backgroundColor: 'transparent'
-  }
+    backgroundColor: 'transparent',
+  },
 });
