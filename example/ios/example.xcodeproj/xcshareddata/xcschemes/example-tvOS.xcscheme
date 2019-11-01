@@ -7,30 +7,44 @@
       buildImplicitDependencies = "YES">
       <BuildActionEntries>
          <BuildActionEntry
-            buildForTesting = "NO"
+            buildForTesting = "YES"
             buildForRunning = "YES"
             buildForProfiling = "YES"
             buildForArchiving = "YES"
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "83CBBA2D1A601D0E00E9B192"
+               BlueprintIdentifier = "2D2A28121D9B038B00D4039D"
                BuildableName = "libReact.a"
-               BlueprintName = "React"
+               BlueprintName = "React-tvOS"
                ReferencedContainer = "container:../node_modules/react-native/React/React.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
-            buildForTesting = "NO"
+            buildForTesting = "YES"
             buildForRunning = "YES"
             buildForProfiling = "YES"
             buildForArchiving = "YES"
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "GLModelView.app"
-               BlueprintName = "example"
+               BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
+               BuildableName = "example-tvOS.app"
+               BlueprintName = "example-tvOS"
+               ReferencedContainer = "container:example.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
+               BuildableName = "example-tvOSTests.xctest"
+               BlueprintName = "example-tvOSTests"
                ReferencedContainer = "container:example.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -41,17 +55,29 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
+      <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
+               BuildableName = "example-tvOSTests.xctest"
+               BlueprintName = "example-tvOSTests"
+               ReferencedContainer = "container:example.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+      </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "GLModelView.app"
-            BlueprintName = "example"
+            BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
+            BuildableName = "example-tvOS.app"
+            BlueprintName = "example-tvOS"
             ReferencedContainer = "container:example.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <Testables>
-      </Testables>
+      <AdditionalOptions>
+      </AdditionalOptions>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -67,12 +93,14 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "GLModelView.app"
-            BlueprintName = "example"
+            BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
+            BuildableName = "example-tvOS.app"
+            BlueprintName = "example-tvOS"
             ReferencedContainer = "container:example.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <AdditionalOptions>
+      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -84,9 +112,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "GLModelView.app"
-            BlueprintName = "example"
+            BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
+            BuildableName = "example-tvOS.app"
+            BlueprintName = "example-tvOS"
             ReferencedContainer = "container:example.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

@@ -1,7 +1,4 @@
 {
-  "expo": {
-    "sdkVersion": "15.0.0"
-  },
   "name": "example",
-  "displayName": "GLModelView"
+  "displayName": "example"
 }

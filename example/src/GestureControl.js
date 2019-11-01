@@ -1,9 +1,5 @@
-import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Animated,
-  Platform
-} from 'react-native';
+import React, {Component} from 'react';
+import {StyleSheet, Animated, Platform} from 'react-native';
 
 import ModelView from 'react-native-gl-model-view';
 const AnimatedModelView = Animated.createAnimatedComponent(ModelView);
@@ -12,12 +8,11 @@ export default class GestureControl extends Component {
   constructor() {
     super();
     this.state = {
-
       rotateX: new Animated.Value(0),
       rotateZ: new Animated.Value(0),
 
       fromXY: undefined,
-      valueXY: undefined
+      valueXY: undefined,
     };
   }
 
@@ -25,27 +20,30 @@ export default class GestureControl extends Component {
     this.setState({
       fromXY: undefined,
     });
-  }
+  };
 
-  onMove = (e) => {
-    let { pageX, pageY } = e.nativeEvent,
-      { rotateX, rotateZ, fromXY, valueXY } = this.state;
+  onMove = e => {
+    let {pageX, pageY} = e.nativeEvent,
+      {rotateX, rotateZ, fromXY, valueXY} = this.state;
     if (!this.state.fromXY) {
       this.setState({
         fromXY: [pageX, pageY],
-        valueXY: [
-          rotateZ.__getValue(),
-          rotateX.__getValue()
-        ]
+        valueXY: [rotateZ.__getValue(), rotateX.__getValue()],
       });
     } else {
-      rotateZ.setValue(valueXY[0]+(pageX-fromXY[0])/2);
-      rotateX.setValue(valueXY[1]+(Platform.OS === 'ios' ? 1 : -1)*(pageY-fromXY[1])/2);
+      rotateZ.setValue(
+        valueXY[0] +
+          ((Platform.OS === 'ios' ? 1 : -1) * (pageX - fromXY[0])) / 2,
+      );
+      rotateX.setValue(
+        valueXY[1] +
+          ((Platform.OS === 'ios' ? 1 : -1) * (pageY - fromXY[1])) / 2,
+      );
     }
-  }
+  };
 
   render() {
-    let { rotateZ, rotateX } = this.state;
+    let {rotateZ, rotateX} = this.state;
 
     return (
       <AnimatedModelView
@@ -55,19 +53,15 @@ export default class GestureControl extends Component {
         texture={{
           uri: 'demon.png',
         }}
-
         onStartShouldSetResponder={() => true}
         onResponderRelease={this.onMoveEnd}
         onResponderMove={this.onMove}
-
         animate
-
+        tint={{r: 1.0, g: 1.0, b: 1.0, a: 1.0}}
         scale={0.01}
         translateZ={-2}
-
         rotateX={rotateX}
         rotateZ={rotateZ}
-
         style={styles.container}
       />
     );
@@ -75,4 +69,8 @@ export default class GestureControl extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {flex: 1,backgroundColor: 'transparent'}});
+  container: {
+    flex: 1,
+    backgroundColor: 'transparent',
+  },
+});
