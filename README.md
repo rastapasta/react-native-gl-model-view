@@ -1,6 +1,6 @@
 # react-native-gl-model-view
 
-[![npm version](https://badge.fury.io/js/react-native-gl-model-view.svg)](https://badge.fury.io/js/react-native-gl-model-view)
+[![npm version](https://badge.fury.io/js/react-native-gl-model-view.svg)](https://badge.fury.io/js/react-native-gl-model-view) [![Greenkeeper badge](https://badges.greenkeeper.io/rastapasta/react-native-gl-model-view.svg)](https://greenkeeper.io/)
 ![license](https://img.shields.io/github/license/rastapasta/react-native-gl-model-view.svg)
 
 A `<ModelView>` component for [react-native](https://github.com/facebook/react-native), allowing you to
