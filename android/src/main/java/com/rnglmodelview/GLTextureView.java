@@ -18,6 +18,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.ConfigurationInfo;
 import android.graphics.SurfaceTexture;
+import android.graphics.drawable.Drawable;
 import android.opengl.EGL14;
 import android.opengl.EGLExt;
 import android.opengl.GLDebugHelper;
@@ -661,6 +662,21 @@ public class GLTextureView extends TextureView implements SurfaceTextureListener
       mGLThread.start();
     }
     mDetached = false;
+  }
+
+  @Override
+  public void setBackgroundColor(int color) {
+    // Do nothing since TextureView does not support displaying background drawables
+  }
+
+  @Override
+  public void setBackground(Drawable background) {
+    // Do nothing since TextureView does not support displaying background drawables
+  }
+
+  @Override
+  public void setBackgroundDrawable(Drawable background) {
+    // Do nothing since TextureView does not support displaying background drawables
   }
 
   @Override

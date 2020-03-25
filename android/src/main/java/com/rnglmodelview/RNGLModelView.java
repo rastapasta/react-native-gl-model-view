@@ -159,12 +159,12 @@ public class RNGLModelView extends GLTextureView implements RendererDelegate {
   }
 
   public void setModelRotateX(@Nullable float rotateX) {
-    mModelRotateX = rotateX;
+    mModelRotateX = -rotateX;
     updateModelTransform();
   }
 
   public void setModelRotateY(@Nullable float rotateY) {
-    mModelRotateY = rotateY;
+    mModelRotateY = -rotateY;
     updateModelTransform();
   }
 
