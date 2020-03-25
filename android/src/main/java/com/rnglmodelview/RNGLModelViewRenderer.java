@@ -3,6 +3,7 @@ package com.rnglmodelview;
 import android.content.Context;
 import android.content.res.Resources;
 import android.opengl.GLSurfaceView;
+
 import com.rnglmodelview.TintEffect;
 import com.threed.jpct.Camera;
 import com.threed.jpct.FrameBuffer;
@@ -25,7 +26,7 @@ interface RendererDelegate {
   void onAddedToWorld(Object3D model);
 }
 
-public class RNGLModelViewRenderer implements GLSurfaceView.Renderer {
+public class RNGLModelViewRenderer implements GLTextureView.Renderer {
   public RendererDelegate delegate;
 
   private boolean hasToCreateBuffer = false;
@@ -61,7 +62,6 @@ public class RNGLModelViewRenderer implements GLSurfaceView.Renderer {
   @Override
   public void onSurfaceChanged(GL10 gl, int width, int height) {
     Resources res = mContext.getResources();
-
     if (world == null) {
       fb = new FrameBuffer(width, height);
       world = new World();

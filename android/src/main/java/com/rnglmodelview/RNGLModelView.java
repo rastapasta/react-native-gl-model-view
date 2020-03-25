@@ -1,9 +1,12 @@
 package com.rnglmodelview;
 
 import android.content.Context;
-import android.opengl.GLSurfaceView;
+import android.graphics.Color;
 import android.graphics.PixelFormat;
-import android.util.Log;
+import android.opengl.GLSurfaceView;
+import android.util.AttributeSet;
+import android.view.TextureView;
+
 import com.rnglmodelview.exceptions.ModelObjectNotSupportedException;
 import com.threed.jpct.Loader;
 import com.threed.jpct.Matrix;
@@ -11,13 +14,15 @@ import com.threed.jpct.Object3D;
 import com.threed.jpct.RGBColor;
 import com.threed.jpct.SimpleVector;
 import com.threed.jpct.Texture;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
+
 import javax.annotation.Nullable;
 
-public class RNGLModelView extends GLSurfaceView implements RendererDelegate {
+public class RNGLModelView extends GLTextureView implements RendererDelegate {
 
   private static final String   BASE_64_QUALIFIER         = ";base64,";
   private static final String   HEADER_URI_BASE64_ENCODED = "data:application/octet-stream" + BASE_64_QUALIFIER;
@@ -48,19 +53,21 @@ public class RNGLModelView extends GLSurfaceView implements RendererDelegate {
 
   public RNGLModelView(Context context) {
     super(context);
-    setEGLContextClientVersion(2);
-    setZOrderOnTop(true);
-    setEGLConfigChooser(8, 8, 8, 8, 16, 0);
-    getHolder().setFormat(PixelFormat.RGBA_8888);
+    initialize(context);
+  }
 
+  private void initialize(Context context) {
+    setEGLContextClientVersion(2);
+    setEGLConfigChooser(8, 8, 8, 8, 16, 0);
     mRenderer = new RNGLModelViewRenderer(context);
+    setOpaque(false);
     setRenderer(mRenderer);
     mRenderer.delegate = this;
   }
 
   public void setModelUri(@Nullable final String pUri) {
     Object3D model = null;
-    
+
     try {
       for (final String lGeometryType: SUPPORTED_GEOMETRIES) {
         final String lGeometryHeader = RNGLModelView.getBase64EncodedGeometryHeader(lGeometryType);
@@ -71,14 +78,14 @@ public class RNGLModelView extends GLSurfaceView implements RendererDelegate {
           model = RNGLModelView.loadModelFromInputStream(lInputStream, lGeometryType);
         }
       }
-      
+
       if (model == null) {
         if (pUri.startsWith(HEADER_URI_ASSETS)) {
           model = RNGLModelView.loadModel(getContext(), pUri.substring(HEADER_URI_ASSETS.length()));
         } else {
           // XXX: Fall back to the original scheme.
           model = RNGLModelView.loadModel(getContext(), pUri);
-        }   
+        }
       }
     } catch(final IOException | ModelObjectNotSupportedException e) {
       e.printStackTrace();
@@ -117,7 +124,7 @@ public class RNGLModelView extends GLSurfaceView implements RendererDelegate {
   private static final InputStream getInputStreamFromBase64(final String pBase64) {
     return new ByteArrayInputStream(Base64.getDecoder().decode(pBase64));
   }
-  
+
   public void setModelTextureUri(@Nullable String pUri) {
     Texture texture = null;
     if (pUri != null) {
@@ -228,7 +235,7 @@ public class RNGLModelView extends GLSurfaceView implements RendererDelegate {
       final InputStream modelStream = pContext.getAssets().open(modelFileName);
       return RNGLModelView.loadModelFromInputStream(modelStream, extension);
     }
-  
+
     return null;
   }
 
@@ -245,7 +252,7 @@ public class RNGLModelView extends GLSurfaceView implements RendererDelegate {
 
     return texture;
   }
-  
+
   private void updateModelTransform() {
     if (mModel == null) return;
 
