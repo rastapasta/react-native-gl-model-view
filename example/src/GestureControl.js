@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Animated, Platform} from 'react-native';
+import {StyleSheet, Animated} from 'react-native';
 
 import ModelView from 'react-native-gl-model-view';
 const AnimatedModelView = Animated.createAnimatedComponent(ModelView);
@@ -8,7 +8,7 @@ export default class GestureControl extends Component {
   constructor() {
     super();
     this.state = {
-      rotateX: new Animated.Value(0),
+      rotateX: new Animated.Value(-90),
       rotateZ: new Animated.Value(0),
 
       fromXY: undefined,
@@ -31,19 +31,13 @@ export default class GestureControl extends Component {
         valueXY: [rotateZ.__getValue(), rotateX.__getValue()],
       });
     } else {
-      rotateZ.setValue(
-        valueXY[0] +
-          ((Platform.OS === 'ios' ? 1 : -1) * (pageX - fromXY[0])) / 2,
-      );
-      rotateX.setValue(
-        valueXY[1] +
-          ((Platform.OS === 'ios' ? 1 : -1) * (pageY - fromXY[1])) / 2,
-      );
+      rotateZ.setValue(valueXY[0] + (pageX - fromXY[0]) / 2);
+      rotateX.setValue(valueXY[1] + (pageY - fromXY[1]) / 2);
     }
   };
 
   render() {
-    let {rotateZ, rotateX} = this.state;
+    let {rotateZ, rotateX, fromXY} = this.state;
 
     return (
       <AnimatedModelView
@@ -56,12 +50,12 @@ export default class GestureControl extends Component {
         onStartShouldSetResponder={() => true}
         onResponderRelease={this.onMoveEnd}
         onResponderMove={this.onMove}
-        animate
+        animate={!!fromXY}
         tint={{r: 1.0, g: 1.0, b: 1.0, a: 1.0}}
         scale={0.01}
-        translateZ={-2}
         rotateX={rotateX}
         rotateZ={rotateZ}
+        translateZ={-4}
         style={styles.container}
       />
     );
