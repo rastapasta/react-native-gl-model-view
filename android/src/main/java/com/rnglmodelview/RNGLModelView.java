@@ -159,12 +159,12 @@ public class RNGLModelView extends GLTextureView implements RendererDelegate {
   }
 
   public void setModelRotateX(@Nullable float rotateX) {
-    mModelRotateX = -rotateX;
+    mModelRotateX = rotateX;
     updateModelTransform();
   }
 
   public void setModelRotateY(@Nullable float rotateY) {
-    mModelRotateY = -rotateY;
+    mModelRotateY = rotateY;
     updateModelTransform();
   }
 
@@ -262,9 +262,11 @@ public class RNGLModelView extends GLTextureView implements RendererDelegate {
     scaleMatrix.setRow(2, 0, 0, mModelScaleZ, 0);
 
     Matrix rotationMatrix = new Matrix();
-    rotationMatrix.rotateZ((float)Math.toRadians(mModelRotateZ));
+
+    // jPCT is upside down, so let's fix that in our rotation
+    rotationMatrix.rotateZ((float)Math.toRadians(-mModelRotateZ));
     rotationMatrix.rotateY((float)Math.toRadians(mModelRotateY));
-    rotationMatrix.rotateX((float)Math.toRadians(mModelRotateX + 180)); // jPCT is upside down, so we add 180
+    rotationMatrix.rotateX((float)Math.toRadians(-mModelRotateX));
 
     // Most 3D applications pre-multiply the matrices that way: Transform = T * R * S * Origin. But since
     // jPCT only scales in the local space by default, the origin of the mesh is never adjusted for the scale.
