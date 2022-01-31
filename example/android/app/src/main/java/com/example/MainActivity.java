@@ -1,4 +1,4 @@
-package com.github.rastapasta.rnglmodelview;
+package com.example;
 
 import com.facebook.react.ReactActivity;
 

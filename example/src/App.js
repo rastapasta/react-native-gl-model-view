@@ -28,7 +28,7 @@ export default class example extends Component {
           {this.state.example && (
             <TouchableOpacity
               onPress={() => this.select()}
-              hitSlop={{top: 9, left: 9, bottom: 9, right: 9}}>
+              hitSlop={{top: 15, left: 15, bottom: 15, right: 15}}>
               <Text style={styles.backButton}>&lt;</Text>
             </TouchableOpacity>
           )}
